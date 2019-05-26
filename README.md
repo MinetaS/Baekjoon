@@ -9,4 +9,4 @@
 - 가능한 경우 입력은 stdio의 scanf와 printf를 사용했습니다.
 
 ## Me
-<acmicpc.net/user/skdty87>
+<https://acmicpc.net/user/skdty87>
