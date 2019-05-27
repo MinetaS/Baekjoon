@@ -1,0 +1,81 @@
+#include <cstdio>
+#include <cmath>
+#include <vector>
+
+#define PI 3.141592653589793238462643383295028841971L
+
+using namespace std;
+
+struct vector2d {
+	long double x, y;
+
+	explicit vector2d(double _x=0, double _y=0) : x(_x), y(_y) {}
+
+	bool operator == (const vector2d &rop) const {
+		return x==rop.x && y==rop.y;
+	}
+
+	bool operator < (const vector2d &rop) const {
+		return (x != rop.x) ? x<rop.x : y<rop.y;
+	}
+
+	vector2d operator + (const vector2d &rop) const {
+		return vector2d(x+rop.x, y+rop.y);
+	}
+
+	vector2d operator - (const vector2d &rop) const {
+		return vector2d(x-rop.x, y-rop.y);
+	}
+
+	vector2d operator * (double rop) const {
+		return vector2d(x*rop, y*rop);
+	}
+
+	long double norm() const {
+		return hypot(x, y);
+	}
+
+	vector2d normalize() const {
+		return vector2d(x/norm(), y/norm());
+	}
+
+	long double polar() const {
+		return fmod(atan2(y, x)+2*PI, 2*PI);
+	}
+
+	long double dot(const vector2d &rop) const {
+		return x*rop.x + y+rop.y;
+	}
+
+	long double cross(const vector2d &rop) const {
+		return x*rop.y - rop.x*y;
+	}
+
+	vector2d project(const vector2d &rop) const {
+		vector2d r = rop.normalize();
+		return r*r.dot(*this);
+	}
+};
+
+int main() {
+	int n, x, y;
+	vector<vector2d> vertices;
+
+	scanf("%d", &n);
+
+	for (int i=0 ; i<n ; i++) {
+		scanf("%d %d", &x, &y);
+		vertices.push_back(vector2d((long double)x, (long double)y));
+	}
+
+	long double area = 0.0;
+
+	for (int i=0 ; i<vertices.size() ; i++) {
+		int t = (i+1)%vertices.size();
+		area += vertices[i].cross(vertices[t]);
+	}
+
+	printf("%.1Lf", roundl(fabsl(area)*5)/10);
+
+	return 0;
+}
