@@ -12,7 +12,7 @@ struct vector2d {
 	long double x, y;
 
 	explicit vector2d(long double _x=0, long double _y=0) : x(_x), y(_y) {}
-	   
+	
 	bool operator == (const vector2d &rop) const {
 		return x==rop.x && y==rop.y;
 	}
