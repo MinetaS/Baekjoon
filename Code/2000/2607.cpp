@@ -1,37 +1,64 @@
-#include <cstdio>
-#include <cmath>
+#include <iostream>
+#include <string>
+#include <cstring>
+#include <algorithm>
+
+using namespace std;
 
 int main() {
-	int n;
-	int count[100][26] = {0,};
-	int similar = 0;
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
 
-	scanf("%d", &n);
+	int n, s=0;
+	int count[26];
+	string first, cmp_str;
 
-	for (int i=0 ; i<n ; i++) {
-		char s[11];
-		scanf("%s", s);
+	
+	cin >> n;
+	cin >> first;
 
-		for (int j=0 ; s[j]!=0 ; j++) count[i][s[j]-65]++;
-	}
+	for (int i=0 ; i<n-1 ; i++) {
+		cmp_str = string("");
+		cin >> cmp_str;
+		
+		int size1 = first.length();
+		int size2 = cmp_str.length();
 
-	for (int i=1 ; i<n ; i++) {
-		int diff_count = 0;
+		if (abs(size1-size2) > 1) continue;
+
+		memset(count, 0, sizeof(count));
+
+		for (int j=0 ; j<min(size1, size2) ; j++) {
+			count[first[j]-65]++;
+			count[cmp_str[j]-65]--;
+		}
+
+		if (abs(size1-size2)) (size1 > size2) ? count[first[size1-1]-65]++ : count[cmp_str[size2-1]-65]--;
+
+		bool check = true;
+		int diff_p = 0;
+		int diff_n = 0;
 
 		for (int j=0 ; j<26 ; j++) {
-			if (abs(count[0][j]-count[i][j]) > 1) {
-				diff_count = 999;
+			if (abs(count[j]) > 1) {
+				check = false;
 				break;
 			}
 
-			if (abs(count[0][j]-count[i][j]) == 1) diff_count++;
-			if (diff_count > 2) break;
+			if (count[j] > 0) diff_p++;
+			if (count[j] < 0) diff_n++;
+
+			if (diff_p>1 || diff_n>1) {
+				check = false;
+				break;
+			}
 		}
 
-		if (diff_count <= 2) similar++;
+		if (check) s++;
 	}
-
-	printf("%d", similar);
+	
+	cout << s;
 
 	return 0;
 }
