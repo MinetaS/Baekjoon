@@ -16,8 +16,6 @@ int main() {
 	memset(cache, 0, sizeof(cache));
 
 	Pair r = calculate(d);
-	int f = 0;
-	int s = 0;
 
 	for (int i=1 ; i*r.first<=k ; i++) {
 		if (i*r.first == k) break;
