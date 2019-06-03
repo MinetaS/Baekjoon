@@ -47,7 +47,7 @@ string decode(const string &s) {
 
 	ret.resize(size);
 
-	for (size_t i = 0, j = 0; i < len;) {
+	for (size_t i=0, j=0 ; i<len ; ) {
 		uint32_t a = (s[i] == '=') ? 0 & i++ : charset[static_cast<int>(s[i++])];
 		uint32_t b = (s[i] == '=') ? 0 & i++ : charset[static_cast<int>(s[i++])];
 		uint32_t c = (s[i] == '=') ? 0 & i++ : charset[static_cast<int>(s[i++])];
