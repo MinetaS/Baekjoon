@@ -5,7 +5,7 @@ using namespace std;
 
 string encode(const string &s);
 
-int main(int argc, char *argv[]) {
+int main() {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
 	cout.tie(NULL);
