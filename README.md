@@ -1,13 +1,10 @@
 # Baekjoon
-- [백준 온라인 저지](https://acmicpc.net) (Baekjoon Online Judge; BOJ) 에서 AC를 받은 정답 코드를 모아놓았습니다.
-- 모든 코드는 C++20을 기준으로 작성되었습니다. 하지만 제출은 C++14로 하니, C++14를 기준으로 해도 정상 작동한다는 의미를 가집니다.
-- 이 Repo는 개인적으로 코드를 저장하는 장소로 활용하기도 하지만, 제가 푼 방식이 누군가에게 조금이나마 도움이 되기를 바란다는 의미에서 작성했습니다. 코드를 그대로 배껴서 제출하는 행동은 삼가해주세요. 단순히 정답 수만을 늘리는 것은 실력 향상에 아무런 도움을 주지 않습니다.
+- https://acmicpc.net
 
 ## Code
-- .text 파일은 Text 언어로만 제출할 수 있는 문제의 정답입니다.
-- 파일명이 u로 끝나는 코드는 아직 미완성인 코드입니다. (정답 코드가 아닙니다)
-- 문제의 정답이 랜덤할 경우 (ex. 로또), 코드 첫 줄에는 // Random 주석이 붙습니다. 즉 이 코드는 다시 제출했을 때 매우 높은 확률로 AC를 받을 수 없습니다.
-- 가능한 경우 입력은 stdio의 scanf와 printf를 사용했습니다.
+- .text : Text language only-submit problems
+- C++ Compiler : C++14 (compatible with C++20)
+- Java Compiler : JRE 1.8.0-211
 
 ## Me
 <https://acmicpc.net/user/skdty87>
