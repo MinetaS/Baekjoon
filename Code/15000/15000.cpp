@@ -2,11 +2,16 @@
 
 typedef unsigned char byte;
 
-byte buf[1 << 20];
+constexpr unsigned int size = 128000;
 
 int main() {
-	fread(buf, 1, 1<<20, stdin);
-	for (int i=0 ; buf[i]!=10 ; i++) putchar(buf[i]-32);
-	
+	int i;
+
+	for (byte buf[size+1] ; fread(buf, 1, size, stdin) != 0 ; ) {
+		for (i=0 ; i<size && buf[i]!=10 ; i++) buf[i] -= 32;
+		buf[i] = 0;
+		printf("%s", buf);
+	}
+
 	return 0;
 }
