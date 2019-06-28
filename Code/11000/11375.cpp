@@ -19,6 +19,8 @@ private:
 	vector<int> _HK_Level;
 	vector<int> _HK_Match_Left;
 	vector<int> _HK_Match_Right;
+	vector<int> _HK_DFS_Visit;
+	int _HK_Visit;
 
 public:
 	BipartiteGraph();
@@ -52,10 +54,13 @@ int BipartiteGraph::HopcroftKarpMatch() {
 	_HK_Level = vector<int>(_Size_Left, -1);
 	_HK_Match_Left = vector<int>(_Size_Left, -1);
 	_HK_Match_Right = vector<int>(_Size_Right, -1);
+	_HK_DFS_Visit = vector<int>(_Size_Left, 0);
+	_HK_Visit = 0;
 
 	int match = 0;
 
 	while (true) {
+		_HK_Visit++;
 		_HopcroftKarpMatch_SetLevel();
 
 		int augment = 0;
@@ -99,6 +104,10 @@ void BipartiteGraph::_HopcroftKarpMatch_SetLevel() {
 }
 
 bool BipartiteGraph::_HopcroftKarpMatch_AddAugmentPath(int _Node) {
+	if (_HK_DFS_Visit[_Node] == _HK_Visit) return false;
+
+	_HK_DFS_Visit[_Node] = _HK_Visit;
+
 	for (int next : _Adjacent[_Node]) {
 		int update = _HK_Match_Right[next];
 
