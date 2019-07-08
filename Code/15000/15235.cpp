@@ -37,7 +37,7 @@ int main() {
 
 	for (int i=0 ; i<n ; i++) printf("%d ", res[i]);
 
-	delete res;
+	delete[] res;
 
 	return 0;
 }

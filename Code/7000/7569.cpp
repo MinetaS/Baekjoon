@@ -112,11 +112,11 @@ int main() {
 	}
 
 	for (int i=0 ; i<mz+2 ; i++) {
-		for (int j=0 ; j<my+2 ; j++) delete box[i][j];
-		delete box[i];
+		for (int j=0 ; j<my+2 ; j++) delete[] box[i][j];
+		delete[] box[i];
 	}
 
-	delete box;
+	delete[] box;
 
 	return 0;
 }

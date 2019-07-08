@@ -20,7 +20,7 @@ int main() {
 
 	printf("%d", len);
 
-	delete h;
+	delete[] h;
 
 	return 0;
 }

@@ -78,8 +78,8 @@ int main() {
 		time++;
 	}
 
-	for (int i=0 ; i<n+2 ; i++) delete maze[i];
-	delete maze;
+	for (int i=0 ; i<n+2 ; i++) delete[] maze[i];
+	delete[] maze;
 
 	return 0;
 }

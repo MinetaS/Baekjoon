@@ -27,7 +27,7 @@ int main() {
 
 		printf("Case #%d: %d\n", _c_index+1, count);
 
-		delete set;
+		delete[] set;
 	}
 
 	return 0;

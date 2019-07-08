@@ -25,8 +25,8 @@ public:
 	}
 
 	~PhysicMap() {
-		for (int i=0 ; i<_Height ; i++) delete _Map[i];
-		delete _Map;
+		for (int i=0 ; i<_Height ; i++) delete[] _Map[i];
+		delete[] _Map;
 	}
 	
 	char at(int _x, int _y) {

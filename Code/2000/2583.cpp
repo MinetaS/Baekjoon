@@ -40,8 +40,8 @@ int main() {
 	printf("%d\n", regions.size());
 	for (int &r : regions) printf("%d ", r);
 
-	for (int i=0 ; i<h ; i++) delete map[i];
-	delete map;
+	for (int i=0 ; i<h ; i++) delete[] map[i];
+	delete[] map;
 
 	return 0;
 }

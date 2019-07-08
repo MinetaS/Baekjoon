@@ -19,7 +19,7 @@ int main() {
 	
 	printf("%d %d", s1, s2);
 
-	delete set;
+	delete[] set;
 
 	return 0;
 }

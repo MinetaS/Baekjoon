@@ -21,8 +21,8 @@ int main() {
 
 	printf("%lld", s);
 
-	delete num;
-	delete psum;
+	delete[] num;
+	delete[] psum;
 
 	return 0;
 }

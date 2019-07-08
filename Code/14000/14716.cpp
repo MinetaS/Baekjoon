@@ -31,8 +31,8 @@ int main() {
 
 	printf("%d", letter);
 
-	for (int i=0 ; i<m ; i++) delete *(board+i);
-	delete board;
+	for (int i=0 ; i<m ; i++) delete[] *(board+i);
+	delete[] board;
 
 	return 0;
 }

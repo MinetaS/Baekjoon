@@ -20,7 +20,7 @@ int main() {
 
 	printf("%lld", sum);
 
-	delete cost;
+	delete[] cost;
 
 	return 0;
 }

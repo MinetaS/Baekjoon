@@ -43,7 +43,7 @@ int main() {
 
 		printf("\n");
 
-		delete check;
+		delete[] check;
 	}
 
 	return 0;

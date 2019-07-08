@@ -33,7 +33,7 @@ int main() {
 
 	printf("%d", count);
 
-	delete psum;
+	delete[] psum;
 
 	return 0;
 }

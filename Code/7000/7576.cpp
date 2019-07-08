@@ -81,8 +81,8 @@ int main() {
 		day++;
 	}
 
-	for (int i=0 ; i<h+2 ; i++) delete *(box+i);
-	delete box;
+	for (int i=0 ; i<h+2 ; i++) delete[] *(box+i);
+	delete[] box;
 
 	return 0;
 }

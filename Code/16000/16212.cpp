@@ -15,7 +15,7 @@ int main() {
 
 	for (int i=0 ; i<n ; i++) printf("%d ", set[i]);
 
-	delete set;
+	delete[] set;
 
 	return 0;
 }

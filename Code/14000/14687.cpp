@@ -21,14 +21,15 @@ int main() {
 
 	memcpy(low, set, ((n-1)/2+1)*sizeof(int));
 	memcpy(high, set+(n-1)/2+1, (n/2)*sizeof(int));
-	delete set;
+	delete[] set;
 
 	sort(low, low+(n-1)/2+1, greater<int>());
 
 	for (int i=0 ; i<n/2 ; i++)	printf("%d %d ", low[i], high[i]);
 	if (n & 0x1) printf("%d", low[(n-1)/2]);
 
-	delete low, high;
+	delete[] low;
+	delete[] high;
 
 	return 0;
 }

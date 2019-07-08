@@ -23,7 +23,7 @@ int main() {
 		printf("%d\n", psum[end+1]-psum[begin]);
 	}
 
-	delete psum;
+	delete[] psum;
 
 	return 0;
 }
