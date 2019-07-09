@@ -1,23 +1,16 @@
 #include <cstdio>
 #include <cstring>
-
 int main() {
 	int k;
-	char *buf;
+	char buf[1000000];
 
 	scanf("%d", &k);
-	buf = new char[k+1];
 
 	memset(buf, 49, k);
-	buf[k] = 0;
-
-	printf("%s", buf);
+	fwrite(buf, 1, k, stdout);
 
 	memset(buf, 48, k-1);
-	buf[k-1] = 0;
-	printf("%s", buf);
-
-	delete[] buf;
+	fwrite(buf, 1, k-1, stdout);
 
 	return 0;
 }
