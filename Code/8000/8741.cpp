@@ -1,5 +1,6 @@
 #include <cstdio>
 #include <cstring>
+
 int main() {
 	int k;
 	char buf[1000000];
