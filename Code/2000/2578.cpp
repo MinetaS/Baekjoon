@@ -1,5 +1,6 @@
 #include <cstdio>
 #include <cstring>
+
 class BingoBoard {
 private:
 	bool fastmap[25];
