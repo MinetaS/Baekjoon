@@ -13,7 +13,7 @@ ifeq ($(CXX), g++)
 endif
 
 %:
-	-@$(CXX) $(CXXFLAGS) -o $(EXE) ./$*.cc
+	$(CXX) $(CXXFLAGS) -o $(EXE) ./$*.cc
 
 clean:
 	@rm -f $(EXE)
