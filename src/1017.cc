@@ -151,7 +151,7 @@ int main() {
     }
 
     for (size_t i = 0; i < result.size(); ++i) {
-        // NodeID = int, so this is trival conversion.
+        // NodeID = int, so this is a trivial conversion.
         result[i] = set[1][result[i]];
     }
 
