@@ -3,6 +3,8 @@
 #include <limits>
 #include <vector>
 
+namespace {
+
 class Graph {
 public:
     using NodeID = int;
@@ -119,6 +121,8 @@ bool HopcroftKarpMatching::add_augment_path(NodeID node) {
 
     return false;
 }
+
+} // namespace
 
 int main() {
     int N;

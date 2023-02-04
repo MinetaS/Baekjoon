@@ -4,7 +4,7 @@
 namespace {
 
 template<unsigned int N, int Zero, int One>
-constexpr auto make_array() {
+consteval auto make_array() {
     static_assert(N > 1);
     std::array<int, N> a;
 
