@@ -67,11 +67,11 @@ public:
     inline quick_istream &operator>>(char *str)         { read_string(str); return *this; }
 
 private:
-    constexpr inline bool is_blank(char c) const {
+    inline constexpr bool is_blank(char c) const {
         return c == 32 || c == 10;
     }
 
-    constexpr inline bool is_end(char c) const {
+    inline constexpr bool is_end(char c) const {
         return c == 0;
     }
 

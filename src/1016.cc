@@ -15,7 +15,7 @@ template<size_t N>
 struct alignas(VectorSize) BooleanArray {
     static_assert(N > 0);
 
-    constexpr inline void set(unsigned int index) {
+    inline constexpr void set(unsigned int index) {
         unsigned int byte = index >> 3;
         unsigned int offset = index & 7;
         array[byte] |= 1u << offset;
@@ -26,13 +26,13 @@ struct alignas(VectorSize) BooleanArray {
 private:
     static constexpr size_t ArraySize = (N + 0x1FF) & ~0x1FFu;
 
-    static constexpr inline void CSA(__m256i *h, __m256i *l, __m256i a, __m256i b, __m256i c) {
+    static inline constexpr void CSA(__m256i *h, __m256i *l, __m256i a, __m256i b, __m256i c) {
         __m256i u = _mm256_xor_si256(a, b);
         *h = _mm256_or_si256(_mm256_and_si256(a, b), _mm256_and_si256(u, c));
         *l = _mm256_xor_si256(u, c);
     }
 
-    static constexpr inline __m256i count_256(__m256i v) {
+    static inline constexpr __m256i count_256(__m256i v) {
         __m256i lookup = _mm256_setr_epi8(0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4,
                                           0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4);
         __m256i low_mask = _mm256_set1_epi8(0x0F);
