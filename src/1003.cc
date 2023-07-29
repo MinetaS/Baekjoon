@@ -18,8 +18,8 @@ consteval auto make_array() {
     return a;
 }
 
-constexpr auto zero = make_array<41, 1, 0>();
-constexpr auto one  = make_array<41, 0, 1>();
+constinit auto Zero = make_array<41, 1, 0>();
+constinit auto One  = make_array<41, 0, 1>();
 
 }  // namespace
 
@@ -32,7 +32,7 @@ int main() {
         int n;
 
         scanf("%d", &n);
-        printf("%d %d\n", zero[n], one[n]);
+        printf("%d %d\n", Zero[n], One[n]);
     }
 
     return 0;
