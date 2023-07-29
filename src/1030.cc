@@ -14,7 +14,7 @@ int main() {
     const int map_size_x = c2 - c1 + 1;
     const int map_size_y = r2 - r1 + 1;
 
-    std::function<void(int, int, int, bool)> draw = [&](int x, int y, int size, bool black) {
+    static const std::function<void(int, int, int, bool)> draw = [&](int x, int y, int size, bool black) {
         // Skip if the current area is not overlapped with the target area.
         if (x + size <= c1 || x > c2 || y + size <= r1 || y > r2)
             return;

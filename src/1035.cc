@@ -37,7 +37,7 @@ struct Board {
     bool check_adjacency() const {
         bool visited[5][5] = { false };
 
-        static std::function<int(int, int)> search = [&](int x, int y) -> int {
+        static const std::function<int(int, int)> search = [&](int x, int y) -> int {
             if (x < 0 || x > 4 || y < 0 || y > 4 || !positions_[y][x] || visited[y][x])
                 return 0;
 
@@ -78,7 +78,7 @@ int main() {
         }
     }
 
-    static std::function<bool(int, int)> simulate = [&](int remaining, int index) {
+    static const std::function<bool(int, int)> simulate = [&](int remaining, int index) {
         if (index == int(board.pieces().size()))
             return remaining == 0 && board.check_adjacency();
 

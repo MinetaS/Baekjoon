@@ -34,7 +34,7 @@ int main() {
         return 0;
     }
 
-    static auto construct_level_graph = [&]() -> int8_t {
+    static const auto construct_level_graph = [&]() -> int8_t {
         int connected = 0;
 
         std::fill_n(reinterpret_cast<int8_t *>(level), sizeof(level), INF);
@@ -104,8 +104,8 @@ int main() {
         return INF;
     };
 
-    static auto send_flow = [&](const std::pair<int, int> edge = std::make_pair(-1, -1)) {
-        static std::function<int(int, int)> traverse = [&](int type, int node) {
+    static const auto send_flow = [&](const std::pair<int, int> edge = std::make_pair(-1, -1)) {
+        static const std::function<int(int, int)> traverse = [&](int type, int node) {
             int current_level = level[type][node];
 
             if (type == Jimin) {
@@ -178,7 +178,7 @@ int main() {
         return 0;
     }
 
-    static auto try_swap_flow = [&](int from, int to) {
+    static const auto try_swap_flow = [&](int from, int to) {
         const std::pair<int, int> c = std::make_pair(from, to);
 
         // It is necessary to store the path to swap flow paths easily.
