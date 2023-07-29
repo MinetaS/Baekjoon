@@ -4,16 +4,12 @@ https://acmicpc.net
 ## Me
 <https://acmicpc.net/user/skdty87>
 
-## Local Environment
+## Local Setup
 
-### C++
+* C++20: gcc/g++ 13.0.1
 
-gcc 13.0.1, C++20 with GNU extensions
+## Pending Changes
 
-### Python
+### Unsupported C++20 Features
 
-Python 3.12.0a4
-
-### Java
-
-JRE 1.8.0-211
+* 1036: Missing `constexpr std::vector` support
