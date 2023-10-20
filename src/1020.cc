@@ -1,3 +1,4 @@
+#include <cinttypes>
 #include <cstdint>
 #include <cstdio>
 #include <cstdlib>
@@ -79,7 +80,7 @@ int main() {
         r = find<ALL>(digits, weight, nullptr) + P10[digits];
     }
 
-    printf("%ld\n", r - n);
+    printf("%" PRId64 "\n", r - n);
 
     return 0;
 }

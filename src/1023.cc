@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <cinttypes>
 #include <cstdint>
 #include <cstdio>
 #include <cstring>
@@ -46,7 +47,7 @@ int main() {
     int n;
     int64_t k;
 
-    scanf("%d %ld", &n, &k);
+    scanf("%d %" SCNd64, &n, &k);
     memset(cache, 0xFF, sizeof(cache));
 
     uint64_t r = find(n, 0, k);
