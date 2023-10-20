@@ -1,3 +1,4 @@
+#include <cinttypes>
 #include <cstdint>
 #include <cstdio>
 
@@ -33,10 +34,10 @@ int main() {
     scanf("%d", &n);
 
     for (unsigned int i = 0; i < 9; ++i) {
-        printf("%lu ", count_digit_freq(uint64_t(n), i));
+        printf("%" PRIu64 " ", count_digit_freq(uint64_t(n), i));
     }
 
-    printf("%lu\n", count_digit_freq(uint64_t(n), 9));
+    printf("%" PRIu64 "\n", count_digit_freq(uint64_t(n), 9));
 
     return 0;
 }

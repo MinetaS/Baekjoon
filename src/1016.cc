@@ -1,6 +1,7 @@
 #pragma GCC target("sse,sse2,sse3,ssse3,sse4,avx,avx2")  // Intel Xeon E5-2666 v3
 #pragma GCC optimize("Ofast")
 
+#include <cinttypes>
 #include <cstdint>
 #include <cstdio>
 #include <initializer_list>
@@ -99,7 +100,7 @@ int main() {
     uint64_t min, max;
     uint64_t i = 11;
 
-    scanf("%lu %lu", &min, &max);
+    scanf("%" SCNu64 " %" SCNu64, &min, &max);
 
     // Process small prime numbers first.
     for (uint64_t i_sq : {4, 9, 25, 49}) {
