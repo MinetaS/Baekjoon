@@ -10,6 +10,8 @@ endif
 
 ifeq ($(CXX), g++)
 	CXXFLAGS = -std=gnu++20 -O2 -Wall -lm -static
+else ifeq ($(CXX), clang++)
+	CXXFLAGS = -std=gnu++20 -O2 -Wall -lm -static
 endif
 
 %:
