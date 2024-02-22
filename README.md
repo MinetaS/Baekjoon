@@ -13,3 +13,4 @@ https://acmicpc.net
 ### Unsupported C++20 Features
 
 * 1036: Missing `constexpr std::vector` support
+* 1040: Missing `constexpr std::vector` support
