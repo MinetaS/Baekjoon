@@ -1,0 +1,18 @@
+[Unit]
+Description=Baekjoon Auto Submit Service
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+User=[REDACTED]
+Group=[REDACTED]
+Restart=always
+RestartSec=1
+EnvironmentFile=$HOME/service/autologin
+PassEnvironment=BOJ_AUTOLOGIN
+ExecStart=$HOME/service/.venv/bin/python $HOME/service/main.py
+WorkingDirectory=$HOME/service
+
+[Install]
+WantedBy=multi-user.target
