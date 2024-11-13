@@ -1,0 +1,15 @@
+[build-system]
+build-backend = "hatchling.build"
+requires = ["hatchling"]
+
+[project]
+name = "BOJ"
+version = "0.1a2"
+requires-python = ">=3.0"
+dependencies = ["requests"]
+authors = [
+    { name = "Syine Mineta", email = "skdty87@gmail.com" }
+]
+description = "A simple tool to submit code to acmicpc.net."
+license = { text = "MIT License" }
+keywords = []
