@@ -20,15 +20,15 @@ unsigned int binomial(int n, int r) {
 int main() {
     int N;
 
-    scanf("%d", &N);
+    std::scanf("%d", &N);
 
-    memset(cache, 0xFF, sizeof(cache));
+    std::memset(cache, 0xFF, sizeof(cache));
 
     while (N-- > 0) {
         int n, m;
 
-        scanf("%d %d", &n, &m);
-        printf("%u\n", binomial(m, n));
+        std::scanf("%d %d", &n, &m);
+        std::printf("%u\n", binomial(m, n));
     }
 
     return 0;

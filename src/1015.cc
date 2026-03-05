@@ -3,18 +3,18 @@
 #include <cstring>
 
 int main() {
-    constexpr size_t MaxArraySize = 50;
+    constexpr std::size_t MaxArraySize = 50;
 
     int n;
     int A[MaxArraySize], B[MaxArraySize], P[MaxArraySize];
     bool used[MaxArraySize];
 
-    scanf("%d", &n);
+    std::scanf("%d", &n);
 
-    memset(used, 0, n);
+    std::memset(used, 0, n);
 
     for (int t, i = 0; i < n; ++i) {
-        scanf("%d", &t);
+        std::scanf("%d", &t);
         B[i] = A[i] = t;
     }
 
@@ -31,7 +31,7 @@ int main() {
     }
 
     for (int i = 0; i < n; ++i) {
-        printf("%d ", P[i]);
+        std::printf("%d ", P[i]);
     }
 
     return 0;

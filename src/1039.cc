@@ -2,18 +2,20 @@
 #include <cstdio>
 #include <deque>
 #include <string>
+#include <tuple>
+#include <utility>
 #include <vector>
 
 namespace {
 
-struct State : public std::tuple<std::string, size_t, int> {
-    using std::tuple<std::string, size_t, int>::tuple;
+struct State : public std::tuple<std::string, std::size_t, int> {
+    using std::tuple<std::string, std::size_t, int>::tuple;
 
     inline constexpr std::string &state() {
         return std::get<0>(*this);
     }
 
-    inline constexpr size_t &i() {
+    inline constexpr std::size_t &i() {
         return std::get<1>(*this);
     }
 
@@ -27,12 +29,12 @@ struct State : public std::tuple<std::string, size_t, int> {
 int main() {
     int n, k;
 
-    scanf("%d %d", &n, &k);
+    std::scanf("%d %d", &n, &k);
 
     const std::string str = std::to_string(n);
 
     if (str.size() == 1 || (str.size() == 2 && str[1] == 48)) {
-        printf("-1");
+        std::printf("-1");
         return 0;
     }
 
@@ -86,7 +88,7 @@ int main() {
 
     std::sort(candidates.begin(), candidates.end(), std::greater<int>());
 
-    printf("%d", *candidates.begin());
+    std::printf("%d", *candidates.begin());
 
     return 0;
 }

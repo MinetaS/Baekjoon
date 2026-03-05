@@ -3,7 +3,7 @@
 int main() {
     int N;
 
-    scanf("%d", &N);
+    std::scanf("%d", &N);
 
     while (N-- > 0) {
         int x1, y1, r1, x2, y2, r2, r;
@@ -13,7 +13,7 @@ int main() {
             return x * x;
         };
 
-        scanf("%d %d %d %d %d %d", &x1, &y1, &r1, &x2, &y2, &r2);
+        std::scanf("%d %d %d %d %d %d", &x1, &y1, &r1, &x2, &y2, &r2);
 
         d = sqr(x1 - x2) + sqr(y1 - y2);
 
@@ -26,7 +26,7 @@ int main() {
         else
             r = 2;
 
-        printf("%d\n", r);
+        std::printf("%d\n", r);
     }
 
     return 0;

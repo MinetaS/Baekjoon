@@ -3,7 +3,7 @@
 int main() {
     int N;
 
-    scanf("%d", &N);
+    std::scanf("%d", &N);
 
     while (N-- > 0) {
         constexpr int table[8][4] = {
@@ -14,7 +14,7 @@ int main() {
         int a, b, z;
         int r;
 
-        scanf("%d %d", &a, &b);
+        std::scanf("%d %d", &a, &b);
 
         switch ((z = a % 10)) {
         case 0:
@@ -37,7 +37,7 @@ int main() {
             r = table[z - 2][(b - 1) % 4];
         }
 
-        printf("%d\n", r);
+        std::printf("%d\n", r);
     }
 
     return 0;

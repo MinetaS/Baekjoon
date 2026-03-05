@@ -3,20 +3,20 @@
 int main() {
     int N;
 
-    scanf("%d", &N);
+    std::scanf("%d", &N);
 
     while (N-- > 0) {
         int sx, sy, dx, dy;
         int n;
         int r = 0;
 
-        scanf("%d %d %d %d", &sx, &sy, &dx, &dy);
-        scanf("%d", &n);
+        std::scanf("%d %d %d %d", &sx, &sy, &dx, &dy);
+        std::scanf("%d", &n);
 
         for (int i = 0; i < n; ++i) {
             int cx, cy, cr;
 
-            scanf("%d %d %d", &cx, &cy, &cr);
+            std::scanf("%d %d %d", &cx, &cy, &cr);
 
             static constexpr auto sqr = [](int x) -> unsigned int {
                 return x * x;
@@ -34,7 +34,7 @@ int main() {
                 ++r;
         }
 
-        printf("%d\n", r);
+        std::printf("%d\n", r);
     }
 
     return 0;

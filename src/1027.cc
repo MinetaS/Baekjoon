@@ -1,6 +1,6 @@
-#include <algorithm>
 #include <cstdint>
 #include <cstdio>
+#include <cstdlib>
 #include <numeric>
 #include <type_traits>
 
@@ -51,9 +51,9 @@ public:
 
 private:
     using U = std::make_unsigned_t<T>;
-    using LU = uint64_t;
+    using LU = std::uint64_t;
 
-    int8_t sign_;
+    std::int8_t sign_;
     U n1_;
     U n2_;
 };
@@ -64,10 +64,10 @@ int main() {
     int n;
     int height[50];
 
-    scanf("%d", &n);
+    std::scanf("%d", &n);
 
     for (int i = 0; i < n; ++i) {
-        scanf("%d", &height[i]);
+        std::scanf("%d", &height[i]);
     }
 
     int max_visible_buildings = 0;
@@ -100,7 +100,7 @@ int main() {
         }
     }
 
-    printf("%d\n", max_visible_buildings);
+    std::printf("%d\n", max_visible_buildings);
 
     return 0;
 }

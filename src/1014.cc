@@ -13,7 +13,7 @@ public:
 class BipartiteGraph : public Graph {
 public:
     BipartiteGraph() = delete;
-    BipartiteGraph(size_t size_left, size_t size_right)
+    BipartiteGraph(std::size_t size_left, std::size_t size_right)
             : size_left_(size_left), size_right_(size_right), adjacent_nodes_(size_left) {}
 
     inline void add_edge(NodeID left, NodeID right) {
@@ -23,8 +23,8 @@ public:
 private:
     friend class HopcroftKarpMatching;
 
-    size_t size_left_;
-    size_t size_right_;
+    std::size_t size_left_;
+    std::size_t size_right_;
     std::vector<std::vector<NodeID>> adjacent_nodes_;
 };
 
@@ -65,7 +65,7 @@ int HopcroftKarpMatching::match() {
 
         update_level();
 
-        for (size_t i = 0; i < graph_.size_left_; ++i) {
+        for (std::size_t i = 0; i < graph_.size_left_; ++i) {
             if (match_left_[i] == -1 && add_augment_path(i)) {
                 ++augment;
             }
@@ -83,7 +83,7 @@ int HopcroftKarpMatching::match() {
 void HopcroftKarpMatching::update_level() {
     std::deque<NodeID> q;
 
-    for (size_t i = 0; i < graph_.size_left_; ++i) {
+    for (std::size_t i = 0; i < graph_.size_left_; ++i) {
         if (match_left_[i] == -1) {
             level_[i] = 0;
             q.push_back(i);
@@ -94,7 +94,7 @@ void HopcroftKarpMatching::update_level() {
     }
 
     while (!q.empty()) {
-        int now = q.front();
+        NodeID now = q.front();
         q.pop_front();
 
         for (int next : graph_.adjacent_nodes_[now]) {
@@ -127,7 +127,7 @@ bool HopcroftKarpMatching::add_augment_path(NodeID node) {
 int main() {
     int N;
 
-    scanf("%d", &N);
+    std::scanf("%d", &N);
 
     while (N-- > 0) {
         constexpr int dx[6] = {-1, -1, -1, 1, 1, 1};
@@ -137,12 +137,12 @@ int main() {
         int height, width;
         int seat = 0;
 
-        scanf("%d %d", &height, &width);
+        std::scanf("%d %d", &height, &width);
 
         BipartiteGraph graph(height * width, height * width);
 
         for (int i = 0; i < height; ++i) {
-            scanf("%s", map[i]);
+            std::scanf("%s", map[i]);
 
             for (int j = 0; j < width; ++j) {
                 if (map[i][j] == '.') {
@@ -170,7 +170,7 @@ int main() {
 
         HopcroftKarpMatching matching(graph);
 
-        printf("%d\n", seat - matching.match());
+        std::printf("%d\n", seat - matching.match());
     }
 
     return 0;

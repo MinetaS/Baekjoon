@@ -7,8 +7,8 @@ int main() {
     int r1, c1, r2, c2;
     bool map[50][50];
 
-    memset(map, 0, sizeof(map));
-    scanf("%d %d %d %d %d %d %d", &s, &n, &k, &r1, &r2, &c1, &c2);
+    std::memset(map, 0, sizeof(map));
+    std::scanf("%d %d %d %d %d %d %d", &s, &n, &k, &r1, &r2, &c1, &c2);
 
     const int margin = (n - k) / 2;
     const int map_size_x = c2 - c1 + 1;
@@ -67,10 +67,10 @@ int main() {
 
     for (int j = 0; j < map_size_y; ++j) {
         for (int i = 0; i < map_size_x; ++i) {
-            printf("%d", map[j][i]);
+            std::printf("%d", map[j][i]);
         }
 
-        printf("\n");
+        std::putchar('\n');
     }
 
     return 0;

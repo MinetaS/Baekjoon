@@ -1,4 +1,3 @@
-#include <algorithm>
 #include <cmath>
 #include <cstdio>
 
@@ -30,14 +29,14 @@ int compare_double(double x, double y) {
 int main() {
     int N;
 
-    scanf("%d", &N);
+    std::scanf("%d", &N);
 
     while (N-- > 0) {
         int x, y;
 
-        scanf("%d %d", &x, &y);
+        std::scanf("%d %d", &x, &y);
 
-        double root = (sqrt(4.0 * (y - x) + 1) - 1) / 2;
+        double root = (std::sqrt(4.0 * (y - x) + 1) - 1) / 2;
         int root_n = int(root);
         int r;
 
@@ -53,7 +52,7 @@ int main() {
             }
         }
 
-        printf("%d\n", r);
+        std::printf("%d\n", r);
     }
 
     return 0;

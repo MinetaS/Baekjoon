@@ -2,7 +2,7 @@
 #include <cstring>
 
 int match(const char *str) {
-    size_t size = strlen(str);
+    std::size_t size = std::strlen(str);
 
     if (size == 0)
         return true;
@@ -40,13 +40,13 @@ int match(const char *str) {
 int main() {
     int N;
 
-    scanf("%d", &N);
+    std::scanf("%d", &N);
 
     while (N-- > 0) {
         char message[201];
 
-        scanf("%s", message);
-        puts(match(message) ? "YES" : "NO");
+        std::scanf("%s", message);
+        std::puts(match(message) ? "YES" : "NO");
     }
 
     return 0;

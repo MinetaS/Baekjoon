@@ -1,3 +1,4 @@
+#include <bit>
 #include <cstdint>
 #include <cstring>
 #include <functional>
@@ -8,12 +9,12 @@
 
 namespace {
 
-class Digits : public std::vector<int8_t> {
+class Digits : public std::vector<std::int8_t> {
 public:
-    using std::vector<int8_t>::vector;
+    using std::vector<std::int8_t>::vector;
 
-    inline uint64_t to_ulong() const {
-        return std::accumulate(cbegin(), cend(), 0uL, [](uint64_t acc, int8_t v) {
+    inline std::uint64_t to_ulong() const {
+        return std::accumulate(cbegin(), cend(), 0uL, [](std::uint64_t acc, std::int8_t v) {
             return acc * 10 + v;
         });
     }
@@ -26,7 +27,7 @@ public:
 class Mask {
 public:
     Mask() : v_(0) {}
-    Mask(uint32_t v) : v_(v) {}
+    Mask(std::uint32_t v) : v_(v) {}
 
     inline constexpr int count() const {
         return std::popcount(v_);
@@ -36,12 +37,12 @@ public:
         return (v_ >> i) & 1;
     }
 
-    inline constexpr operator uint32_t() const {
+    inline constexpr operator std::uint32_t() const {
         return v_;
     }
 
 private:
-    uint32_t v_;
+    std::uint32_t v_;
 };
 
 } // namespace
@@ -49,7 +50,7 @@ private:
 int main() {
     std::ios_base::sync_with_stdio(false);
 
-    uint64_t n_;
+    std::uint64_t n_;
     int k;
     Digits n, digits;
 
@@ -64,7 +65,7 @@ int main() {
         n[0] = 1;
     }
 
-    bool cache[19][1024][2] = { 0 };
+    bool cache[19][1024][2] = {};
 
     static std::function<bool(Mask, bool)> construct = [&](Mask mask, bool tight) {
         if (digits.size() == n.size())
@@ -98,7 +99,7 @@ int main() {
         n[0] = 1;
         digits.clear();
 
-        memset(cache, 0, sizeof(cache));
+        std::memset(cache, 0, sizeof(cache));
         construct(Mask(), true);
     }
 

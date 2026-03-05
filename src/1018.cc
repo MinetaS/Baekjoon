@@ -9,24 +9,24 @@
 
 int main() {
     int width, height;
-    uint64_t board[50] = { 0 };  // white: 0, black: 1
+    std::uint64_t board[50] = { 0 };  // white: 0, black: 1
 
-    scanf("%d %d", &height, &width);
+    std::scanf("%d %d", &height, &width);
 
     for (int i = 0; i < height; ++i) {
         char buf[51];
 
-        scanf("%s", buf);
+        std::scanf("%s", buf);
 
-        for (size_t j = 0; j < strlen(buf); ++j) {
+        for (std::size_t j = 0; j < std::strlen(buf); ++j) {
             if (buf[j] == 'B') {
                 board[i] |= 1uL << j;
             }
         }
     }
 
-    constexpr uint8_t Pattern1 = 0b10101010;
-    constexpr uint8_t Pattern2 = 0b01010101;
+    constexpr std::uint8_t Pattern1 = 0b10101010;
+    constexpr std::uint8_t Pattern2 = 0b01010101;
     unsigned int best = 32;
 
     for (int y = 0; y < height - 7; ++y) {
@@ -34,7 +34,7 @@ int main() {
             unsigned int convert = 0;
 
             for (int i = 0; i < 8; ++i) {
-                uint8_t label = uint8_t((board[y + i] >> x) & 0xFF);
+                std::uint8_t label = std::uint8_t((board[y + i] >> x) & 0xFF);
                 convert += _mm_popcnt_u32(label ^ ((i & 1) ? Pattern1 : Pattern2));
             }
 
@@ -43,7 +43,7 @@ int main() {
         }
     }
 
-    printf("%d\n", best);
+    std::printf("%d\n", best);
 
     return 0;
 }

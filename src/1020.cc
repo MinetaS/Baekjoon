@@ -7,7 +7,7 @@ namespace {
 
 constexpr int Weight[10] = { 4, 0, 3, 3, 2, 3, 4, 1, 5, 3 };
 
-constexpr int64_t P10[16] = {
+constexpr std::int64_t P10[16] = {
     1, 10, 100, 1'000, 10'000, 100'000, 1'000'000, 10'000'000, 100'000'000,
     1'000'000'000, 10'000'000'000, 100'000'000'000, 1'000'000'000'000,
     10'000'000'000'000, 100'000'000'000'000, 1'000'000'000'000'000
@@ -16,7 +16,7 @@ constexpr int64_t P10[16] = {
 enum NodeType { G, ALL };
 
 template<NodeType type>
-int64_t find(int d, int weight, const char *number) {
+std::int64_t find(int d, int weight, const char *number) {
     static_assert(type == G || type == ALL);
 
     constexpr bool LimitedNode = type != ALL;
@@ -24,7 +24,7 @@ int64_t find(int d, int weight, const char *number) {
     if (weight < 0 || weight > 5 * d)
         return -1;
 
-    int64_t r;
+    std::int64_t r;
     int i = 0;
 
     if (d == 1) {
@@ -62,12 +62,12 @@ int64_t find(int d, int weight, const char *number) {
 int main() {
     char buf[16];
 
-    scanf("%s", buf);
+    std::scanf("%s", buf);
 
     int digits = 0;
     int weight = 0;
-    int64_t n = strtol(buf, NULL, 10);
-    int64_t r;
+    std::int64_t n = std::strtol(buf, nullptr, 10);
+    std::int64_t r;
 
     for (const char *c = buf; *c; ++c) {
         ++digits;
@@ -80,7 +80,7 @@ int main() {
         r = find<ALL>(digits, weight, nullptr) + P10[digits];
     }
 
-    printf("%" PRId64 "\n", r - n);
+    std::printf("%" PRId64 "\n", r - n);
 
     return 0;
 }

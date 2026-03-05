@@ -3,8 +3,8 @@
 int main() {
     int a, b;
 
-    scanf("%d %d", &a, &b);
-    printf("%d", a + b);
+    std::scanf("%d %d", &a, &b);
+    std::printf("%d", a + b);
 
     return 0;
 }

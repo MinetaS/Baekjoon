@@ -5,17 +5,17 @@ int main() {
     int n;
     int g = 1, l = 1, t;
 
-    scanf("%d", &n);
-    scanf("%d", &t);
+    std::scanf("%d", &n);
+    std::scanf("%d", &t);
     g = l = t;
 
     for (int i = 1; i < n; ++i) {
-        scanf("%d", &t);
+        std::scanf("%d", &t);
         g = std::gcd(g, t);
         l = std::lcm(l, t);
     }
 
-    printf("%d", g * l);
+    std::printf("%d", g * l);
 
     return 0;
 }

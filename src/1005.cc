@@ -1,7 +1,7 @@
 #ifdef __unix__
 #ifdef __GNUC__
 
-#include <cstdint>
+#include <cstddef>
 #include <stdexcept>
 
 #include <sys/mman.h>
@@ -11,7 +11,7 @@ namespace mlib {
 
 #define __syscall __attribute__((naked))
 
-__syscall ssize_t sys_read(unsigned int fd, char *buf, size_t count) {
+__syscall ssize_t sys_read(unsigned int fd, char *buf, std::size_t count) {
     __asm__ volatile (
         "xor %rax, %rax\n\t"
         "syscall\n\t"
@@ -19,7 +19,7 @@ __syscall ssize_t sys_read(unsigned int fd, char *buf, size_t count) {
     );
 }
 
-__syscall ssize_t sys_write(unsigned int fd, const char *buf, size_t count) {
+__syscall ssize_t sys_write(unsigned int fd, const char *buf, std::size_t count) {
     __asm__ volatile (
         "mov $1, %rax\n\t"
         "syscall\n\t"
@@ -37,7 +37,7 @@ __syscall void *sys_mmap_pgoff(unsigned long addr, unsigned long len, unsigned l
     );
 }
 
-__syscall int sys_munmap(unsigned long addr, size_t len) {
+__syscall int sys_munmap(unsigned long addr, std::size_t len) {
     __asm__ volatile (
         "mov $0xB, %rax\n\t"
         "syscall\n\t"
@@ -228,11 +228,11 @@ private:
 };
 
 #else
-#error "mlib is supported only on gcc and clang."
+#error "Unsupported compiler."
 #endif
 
 #else
-#error "mlib is supported only on Linux."
+#error "Unsupported platform."
 #endif
 
 } // namespace mlib
@@ -245,7 +245,7 @@ namespace {
 
 using Building = std::vector<int>;
 
-constexpr size_t MaxBuildings = 1000;
+constexpr std::size_t MaxBuildings = 1000;
 
 // Each vector stores required buildings to build the corresponding one.
 Building prerequisites[MaxBuildings + 1];

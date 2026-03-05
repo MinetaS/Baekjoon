@@ -1,15 +1,14 @@
-#include <cstdint>
+#include <algorithm>
 #include <cstdio>
 #include <cstdlib>
 #include <functional>
+#include <utility>
 #include <vector>
 
 namespace {
 
 struct Board {
     using Piece = std::pair<int, int>;
-
-    Board() : positions_({}) {}
 
     void add(int x, int y) {
         pieces_.emplace_back(x, y);
@@ -35,7 +34,7 @@ struct Board {
     }
 
     bool check_adjacency() const {
-        bool visited[5][5] = { false };
+        bool visited[5][5] = {};
 
         static const std::function<int(int, int)> search = [&](int x, int y) -> int {
             if (x < 0 || x > 4 || y < 0 || y > 4 || !positions_[y][x] || visited[y][x])
@@ -58,7 +57,7 @@ struct Board {
 
 private:
     std::vector<Piece> pieces_;
-    bool positions_[5][5];
+    bool positions_[5][5] = {};
 };
 
 } // namespace
@@ -69,7 +68,7 @@ int main() {
     for (int i = 0; i < 5; ++i) {
         char line[6];
 
-        scanf("%s", line);
+        std::scanf("%s", line);
 
         for (int j = 0; j < 5; ++j) {
             if (line[j] == '*') {
@@ -112,7 +111,7 @@ int main() {
 
     for (int i = 0; i <= 12; ++i) {
         if (simulate(i, 0)) {
-            printf("%d", i);
+            std::printf("%d", i);
             break;
         }
     }

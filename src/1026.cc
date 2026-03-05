@@ -6,14 +6,14 @@ int main() {
     int n;
     int a[50], b[50];
 
-    scanf("%d", &n);
+    std::scanf("%d", &n);
 
     for (int i = 0; i < n; ++i) {
-        scanf("%d", &a[i]);
+        std::scanf("%d", &a[i]);
     }
 
     for (int i = 0; i < n; ++i) {
-        scanf("%d", &b[i]);
+        std::scanf("%d", &b[i]);
     }
 
     std::sort(a, a + n);
@@ -25,7 +25,7 @@ int main() {
         sum += a[i] * b[i];
     }
 
-    printf("%d\n", sum);
+    std::printf("%d\n", sum);
 
     return 0;
 }

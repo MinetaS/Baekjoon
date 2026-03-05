@@ -7,7 +7,7 @@ int main() {
     std::ios_base::sync_with_stdio(false);
 
     int n, m, k;
-    uint64_t lamp[50];
+    std::uint64_t lamp[50];
     bool checked[50] = { false };
 
     std::cin >> n >> m;

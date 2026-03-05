@@ -1,43 +1,45 @@
+#include <algorithm>
 #include <cstdint>
 #include <cstdio>
 #include <functional>
 #include <limits>
+#include <utility>
 
 int main() {
     constexpr int Jimin = 0, Hansu = 1;
-    constexpr int8_t INF = std::numeric_limits<int8_t>::max();
+    constexpr std::int8_t INF = std::numeric_limits<std::int8_t>::max();
 
     int n, m;
     int rounds[2] = { 0 };
-    int8_t capacity[2][50] = { 0 };
-    int8_t flow[50][50] = { 0 };
-    int8_t level[2][50], level_sink;
+    std::int8_t capacity[2][50] = {};
+    std::int8_t flow[50][50] = {};
+    std::int8_t level[2][50], level_sink;
 
-    scanf("%d %d", &n, &m);
+    std::scanf("%d %d", &n, &m);
 
     // Jimin's team, flow from Source.
     for (int i = 0, t; i < n; ++i) {
-        scanf("%d", &t);
+        std::scanf("%d", &t);
         capacity[Jimin][i] = t;
         rounds[Jimin] += t;
     }
 
     // Hansu's team, flow to Sink.
     for (int i = 0, t; i < m; ++i) {
-        scanf("%d", &t);
+        std::scanf("%d", &t);
         capacity[Hansu][i] = t;
         rounds[Hansu] += t;
     }
 
     if (rounds[Jimin] != rounds[Hansu]) {
-        puts("-1");
+        std::puts("-1");
         return 0;
     }
 
-    static const auto construct_level_graph = [&]() -> int8_t {
+    static const auto construct_level_graph = [&]() -> std::int8_t {
         int connected = 0;
 
-        std::fill_n(reinterpret_cast<int8_t *>(level), sizeof(level), INF);
+        std::fill_n(reinterpret_cast<std::int8_t *>(level), sizeof(level), INF);
 
         // Initialize level = 1.
         for (int i = 0; i < n; ++i) {
@@ -174,7 +176,7 @@ int main() {
     }
 
     if (max_flow != rounds[Jimin]) {
-        puts("-1");
+        std::puts("-1");
         return 0;
     }
 
@@ -250,10 +252,10 @@ int main() {
 
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < m; ++j) {
-            printf("%d", flow[i][j]);
+            std::printf("%d", flow[i][j]);
         }
 
-        printf("\n");
+        std::putchar('\n');
     }
 
     return 0;

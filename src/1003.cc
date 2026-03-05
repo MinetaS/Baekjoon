@@ -26,13 +26,13 @@ constinit auto One  = make_array<41, 0, 1>();
 int main() {
     int N;
 
-    scanf("%d", &N);
+    std::scanf("%d", &N);
 
     while (N-- > 0) {
         int n;
 
-        scanf("%d", &n);
-        printf("%d %d\n", Zero[n], One[n]);
+        std::scanf("%d", &n);
+        std::printf("%d %d\n", Zero[n], One[n]);
     }
 
     return 0;

@@ -45,13 +45,13 @@ private:
 int main() {
     int n;
 
-    scanf("%d", &n);
+    std::scanf("%d", &n);
 
     std::vector<int> mass(n, 1);
     DisjointSet set(n);
 
     for (int i = 0, a, b, p, q; i < n - 1; ++i) {
-        scanf("%d %d %d %d", &a, &b, &p, &q);
+        std::scanf("%d %d %d %d", &a, &b, &p, &q);
 
         int lcm = std::lcm(mass[a], mass[b]);
         int ma = lcm / mass[a];
@@ -74,12 +74,12 @@ int main() {
 
     int div = std::gcd(mass[0], mass[1]);
 
-    for (size_t i = 2; i < mass.size(); ++i) {
+    for (std::size_t i = 2; i < mass.size(); ++i) {
         div = std::gcd(div, mass[i]);
     }
 
     for (int m : mass) {
-        printf("%d ", m / div);
+        std::printf("%d ", m / div);
     }
 
     return 0;

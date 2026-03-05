@@ -22,18 +22,18 @@ public:
     Cache() = delete;
     Cache(DiamondMine &map) : map_(map) {}
 
-    inline constexpr int16_t &operator()(int x, int y, Direction d) {
+    inline constexpr std::int16_t &operator()(int x, int y, Direction d) {
         return data[y][x][d];
     }
 
     template<Direction D>
-    int16_t update(int x, int y) {
+    std::int16_t update(int x, int y) {
         if (y >= map_.rows ||
             (D == LEFT && x < 0) ||
             (D == RIGHT && x >= map_.columns))
             return 0;
 
-        int16_t &r = (*this)(x, y, D);
+        std::int16_t &r = (*this)(x, y, D);
 
         if (r != -1)
             return r;
@@ -43,7 +43,7 @@ public:
                                 1 + update<RIGHT>(x + 1, y + 1);
     }
 
-    int16_t data[750][750][2];
+    std::int16_t data[750][750][2];
 
 private:
     DiamondMine &map_;
@@ -55,11 +55,11 @@ Cache cache(map);
 } // namespace
 
 int main() {
-    memset(cache.data, 0xFF, sizeof(cache.data));
-    scanf("%d %d", &map.rows, &map.columns);
+    std::memset(cache.data, 0xFF, sizeof(cache.data));
+    std::scanf("%d %d", &map.rows, &map.columns);
 
     for (int i = 0; i < map.rows; ++i) {
-        scanf("%s", map.map[i]);
+        std::scanf("%s", map.map[i]);
     }
 
     for (int y = 0; y < map.rows; ++y) {
@@ -89,7 +89,7 @@ int main() {
         }
     }
 
-    printf("%d\n", max_size);
+    std::printf("%d\n", max_size);
 
     return 0;
 }

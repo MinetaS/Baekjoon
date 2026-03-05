@@ -6,7 +6,7 @@
 int main() {
     int n, m;
 
-    scanf("%d %d", &n, &m);
+    std::scanf("%d %d", &n, &m);
 
     std::vector<int> list(n);
     std::vector<int> select(m);
@@ -16,7 +16,7 @@ int main() {
     std::iota(list.begin(), list.end(), 1);
 
     for (int i = 0, t; i < m; ++i) {
-        scanf("%d", &t);
+        std::scanf("%d", &t);
         select[i] = t;
     }
 
@@ -37,7 +37,7 @@ int main() {
         std::rotate(list.begin(), it_from, list.end());
     }
 
-    printf("%d\n", ops);
+    std::printf("%d\n", ops);
 
     return 0;
 }

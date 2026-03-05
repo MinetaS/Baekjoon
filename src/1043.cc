@@ -1,4 +1,6 @@
+#include <array>
 #include <bitset>
+#include <cstddef>
 #include <iostream>
 #include <ranges>
 

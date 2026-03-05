@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <array>
+#include <cstddef>
 #include <cstdint>
 #include <iostream>
 #include <sstream>
@@ -22,15 +23,15 @@ struct Base36 {
         std::reverse(digits_.begin(), digits_.end());
     }
 
-    inline size_t size() const noexcept {
+    inline std::size_t size() const noexcept {
         return digits_.size();
     }
 
-    inline std::vector<uint8_t>::iterator begin() noexcept {
+    inline std::vector<std::uint8_t>::iterator begin() noexcept {
         return digits_.begin();
     }
 
-    inline std::vector<uint8_t>::iterator end() noexcept {
+    inline std::vector<std::uint8_t>::iterator end() noexcept {
         return digits_.end();
     }
 
@@ -53,7 +54,7 @@ struct Base36 {
 
         return std::lexicographical_compare(digits_.crbegin(), digits_.crend(),
                                             other.digits_.crbegin(), other.digits_.crend(),
-                                            std::greater<uint8_t>());
+                                            std::greater<std::uint8_t>());
     }
 
     bool operator<(const Base36 &other) const {
@@ -64,7 +65,7 @@ struct Base36 {
 
         return std::lexicographical_compare(digits_.crbegin(), digits_.crend(),
                                             other.digits_.crbegin(), other.digits_.crend(),
-                                            std::less<uint8_t>());
+                                            std::less<std::uint8_t>());
     }
 
     Base36 operator+(const Base36 &other) const {
@@ -106,7 +107,7 @@ struct Base36 {
 
         std::stringstream ss;
 
-        for (uint8_t c : digits_) {
+        for (std::uint8_t c : digits_) {
             ss << to_digit(c);
         }
 
@@ -125,10 +126,10 @@ struct Base36 {
     }
 
 private:
-    Base36(const std::vector<uint8_t> &digits) : digits_(digits) {}
-    Base36(std::vector<uint8_t> &&digits) : digits_(digits) {}
+    Base36(const std::vector<std::uint8_t> &digits) : digits_(digits) {}
+    Base36(std::vector<std::uint8_t> &&digits) : digits_(digits) {}
 
-    std::vector<uint8_t> digits_;
+    std::vector<std::uint8_t> digits_;
 };
 
 } // namespace

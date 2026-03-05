@@ -12,7 +12,7 @@ namespace {
 
 constexpr int VectorSize = 0x20;
 
-template<size_t N>
+template<std::size_t N>
 struct alignas(VectorSize) BooleanArray {
     static_assert(N > 0);
 
@@ -22,10 +22,10 @@ struct alignas(VectorSize) BooleanArray {
         array[byte] |= 1u << offset;
     }
 
-    size_t count(size_t size);
+    std::size_t count(std::size_t size);
 
 private:
-    static constexpr size_t ArraySize = (N + 0x1FF) & ~0x1FFu;
+    static constexpr std::size_t ArraySize = (N + 0x1FF) & ~0x1FFu;
 
     static inline constexpr void CSA(__m256i *h, __m256i *l, __m256i a, __m256i b, __m256i c) {
         __m256i u = _mm256_xor_si256(a, b);
@@ -46,11 +46,11 @@ private:
         return _mm256_sad_epu8(total, _mm256_setzero_si256());
     }
 
-    uint8_t array[ArraySize];
+    std::uint8_t array[ArraySize];
 };
 
-template<size_t N>
-size_t BooleanArray<N>::count(size_t bits) {
+template<std::size_t N>
+std::size_t BooleanArray<N>::count(std::size_t bits) {
     bits = (bits + 0xFF) & ~0xFFu;
 
     __m256i *d = reinterpret_cast<__m256i *>(array);
@@ -63,7 +63,7 @@ size_t BooleanArray<N>::count(size_t bits) {
     __m256i a2, b2, a4, b4, a8, b8;
 
     // Accumulate per 16 * 32 bytes.
-    for (size_t i = 0; i < bits / 0x100; i += 0x10) {
+    for (std::size_t i = 0; i < bits / 0x100; i += 0x10) {
         CSA(&a2, &c1, c1, d[i], d[i+1]);
         CSA(&b2, &c1, c1, d[i+2], d[i+3]);
         CSA(&a4, &c2, c2, a2, b2);
@@ -97,26 +97,26 @@ BooleanArray<125001> square;
 } // namespace
 
 int main() {
-    uint64_t min, max;
-    uint64_t i = 11;
+    std::uint64_t min, max;
+    std::uint64_t i = 11;
 
-    scanf("%" SCNu64 " %" SCNu64, &min, &max);
+    std::scanf("%" SCNu64 " %" SCNu64, &min, &max);
 
     // Process small prime numbers first.
-    for (uint64_t i_sq : {4, 9, 25, 49}) {
-        for (uint64_t j = i_sq * ((min + i_sq - 1) / i_sq); j <= max; j += i_sq) {
+    for (std::uint64_t i_sq : {4, 9, 25, 49}) {
+        for (std::uint64_t j = i_sq * ((min + i_sq - 1) / i_sq); j <= max; j += i_sq) {
             square.set(j - min);
         }
     }
 
     while (true) {
         if (!(i % 3 == 0 || i % 5 == 0 || i % 7 == 0)) {
-            uint64_t i_sq = i * i;
+            std::uint64_t i_sq = i * i;
 
             if (i_sq > max)
                 break;
 
-            for (uint64_t j = i_sq * ((min + i_sq - 1) / i_sq); j <= max; j += i_sq) {
+            for (std::uint64_t j = i_sq * ((min + i_sq - 1) / i_sq); j <= max; j += i_sq) {
                 square.set(j - min);
             }
         }
@@ -124,9 +124,9 @@ int main() {
         i += 2;
     }
 
-    size_t size = max - min + 1;
+    std::size_t size = max - min + 1;
 
-    printf("%zu\n", size - square.count(size));
+    std::printf("%zu\n", size - square.count(size));
 
     return 0;
 }

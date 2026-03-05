@@ -1,4 +1,3 @@
-#include <algorithm>
 #include <cstdio>
 #include <cmath>
 
@@ -6,14 +5,14 @@ int main() {
     int n, m;
     char map[9][10];
 
-    scanf("%d %d", &n, &m);
+    std::scanf("%d %d", &n, &m);
 
     for (int i = 0; i < n; ++i) {
-        scanf("%s", map[i]);
+        std::scanf("%s", map[i]);
     }
 
     static constexpr auto is_square = [](int n) {
-        int t = int(sqrt(double(n)));
+        int t = int(std::sqrt(double(n)));
         return t * t == n;
     };
 
@@ -52,7 +51,7 @@ int main() {
         }
     }
 
-    printf("%d\n", max_sq);
+    std::printf("%d\n", max_sq);
 
     return 0;
 }

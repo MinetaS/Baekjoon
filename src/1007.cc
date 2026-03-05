@@ -1,7 +1,7 @@
 #ifdef __unix__
 #ifdef __GNUC__
 
-#include <cstdint>
+#include <cstddef>
 #include <iomanip>
 #include <sstream>
 #include <stdexcept>
@@ -13,7 +13,7 @@ namespace mlib {
 
 #define __syscall __attribute__((naked))
 
-__syscall ssize_t sys_read(unsigned int fd, char *buf, size_t count) {
+__syscall ssize_t sys_read(unsigned int fd, char *buf, std::size_t count) {
     __asm__ volatile (
         "xor %rax, %rax\n\t"
         "syscall\n\t"
@@ -21,7 +21,7 @@ __syscall ssize_t sys_read(unsigned int fd, char *buf, size_t count) {
     );
 }
 
-__syscall ssize_t sys_write(unsigned int fd, const char *buf, size_t count) {
+__syscall ssize_t sys_write(unsigned int fd, const char *buf, std::size_t count) {
     __asm__ volatile (
         "mov $1, %rax\n\t"
         "syscall\n\t"
@@ -39,7 +39,7 @@ __syscall void *sys_mmap_pgoff(unsigned long addr, unsigned long len, unsigned l
     );
 }
 
-__syscall int sys_munmap(unsigned long addr, size_t len) {
+__syscall int sys_munmap(unsigned long addr, std::size_t len) {
     __asm__ volatile (
         "mov $0xB, %rax\n\t"
         "syscall\n\t"
@@ -71,7 +71,7 @@ public:
     inline quick_istream &operator>>(char *str)         { read_string(str); return *this; }
 
 private:
-    constexpr static size_t BufferSize = 0x1000;
+    constexpr static std::size_t BufferSize = 0x1000;
 
     inline constexpr bool is_blank(char c) const {
         return c == 32 || c == 10;
@@ -138,7 +138,7 @@ private:
     double read_double() {
         char smallbuf[32];
         read_string(smallbuf);
-        return strtod(smallbuf, NULL);
+        return std::strtod(smallbuf, NULL);
     }
 
     void read_string(char *str) {
@@ -195,7 +195,7 @@ public:
     }
 
 private:
-    constexpr static size_t BufferSize = 0x1000;
+    constexpr static std::size_t BufferSize = 0x1000;
 
     ssize_t write() {
         ssize_t r = sys_write(1, base_, ptr_ - base_);
@@ -256,15 +256,16 @@ private:
 };
 
 #else
-#error "mlib is supported only on gcc and clang."
+#error "Unsupported compiler."
 #endif
 
 #else
-#error "mlib is supported only on Linux."
+#error "Unsupported platform."
 #endif
 
 } // namespace mlib
 
+#include <algorithm>
 #include <cmath>
 #include <limits>
 
@@ -338,7 +339,7 @@ int main() {
             is >> point[i].x >> point[i].y;
         }
 
-        os << sqrt(match(0, n / 2, vector2d())) << '\n';
+        os << std::sqrt(match(0, n / 2, vector2d())) << '\n';
     }
 
     return 0;
