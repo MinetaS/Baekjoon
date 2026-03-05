@@ -1,0 +1,5 @@
+-std=gnu++20
+-O2
+-Wall
+-lm
+-static
