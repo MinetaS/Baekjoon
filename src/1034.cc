@@ -8,7 +8,7 @@ int main() {
 
     int n, m, k;
     std::uint64_t lamp[50];
-    bool checked[50] = { false };
+    bool checked[50] = {};
 
     std::cin >> n >> m;
 

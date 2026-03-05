@@ -21,7 +21,7 @@ bool place_worm(int x, int y) {
     return false;
 }
 
-} // namespace
+}  // namespace
 
 int main() {
     int N;

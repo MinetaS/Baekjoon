@@ -39,8 +39,12 @@ int main() {
 
             for (int i = 0; i < n; ++i) {
                 for (int j = 0; j < n; ++j) {
-                    draw(x + i * size_next, y + j * size_next, size_next,
-                         i >= margin && i < n - margin && j >= margin && j < n - margin);
+                    draw(
+                        x + i * size_next,
+                        y + j * size_next,
+                        size_next,
+                        i >= margin && i < n - margin && j >= margin && j < n - margin
+                    );
                 }
             }
         }

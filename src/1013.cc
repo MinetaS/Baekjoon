@@ -1,7 +1,7 @@
 #include <cstdio>
 #include <cstring>
 
-int match(const char *str) {
+int match(const char* str) {
     std::size_t size = std::strlen(str);
 
     if (size == 0)

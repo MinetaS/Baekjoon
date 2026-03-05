@@ -1,56 +1,40 @@
 #ifdef __unix__
 #ifdef __GNUC__
 
+#include <sys/mman.h>
+#include <sys/types.h>
+
 #include <cstddef>
 #include <iomanip>
 #include <sstream>
 #include <stdexcept>
 
-#include <sys/mman.h>
-#include <sys/types.h>
-
 namespace mlib {
 
 #define __syscall __attribute__((naked))
 
-__syscall ssize_t sys_read(unsigned int fd, char *buf, std::size_t count) {
-    __asm__ volatile (
-        "xor %rax, %rax\n\t"
-        "syscall\n\t"
-        "ret\n\t"
-    );
+__syscall ssize_t sys_read(unsigned int fd, char* buf, std::size_t count) {
+    __asm__ volatile("xor %rax, %rax\n\t" "syscall\n\t" "ret\n\t");
 }
 
-__syscall ssize_t sys_write(unsigned int fd, const char *buf, std::size_t count) {
-    __asm__ volatile (
-        "mov $1, %rax\n\t"
-        "syscall\n\t"
-        "ret\n\t"
-    );
+__syscall ssize_t sys_write(unsigned int fd, const char* buf, std::size_t count) {
+    __asm__ volatile("mov $1, %rax\n\t" "syscall\n\t" "ret\n\t");
 }
 
-__syscall void *sys_mmap_pgoff(unsigned long addr, unsigned long len, unsigned long prot,
-                               unsigned long flags, unsigned long fd, unsigned long pgoff) {
-    __asm__ volatile (
-        "mov %rcx, %r10\n\t"
-        "mov $9, %rax\n\t"
-        "syscall\n\t"
-        "ret\n\t"
-    );
+__syscall void* sys_mmap_pgoff(
+    unsigned long addr, unsigned long len, unsigned long prot, unsigned long flags, unsigned long fd, unsigned long pgoff
+) {
+    __asm__ volatile("mov %rcx, %r10\n\t" "mov $9, %rax\n\t" "syscall\n\t" "ret\n\t");
 }
 
 __syscall int sys_munmap(unsigned long addr, std::size_t len) {
-    __asm__ volatile (
-        "mov $0xB, %rax\n\t"
-        "syscall\n\t"
-        "ret\n\t"
-    );
+    __asm__ volatile("mov $0xB, %rax\n\t" "syscall\n\t" "ret\n\t");
 }
 
 class quick_istream {
 public:
     quick_istream() {
-        base_ = (char *)sys_mmap_pgoff(0, BufferSize, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+        base_ = (char*)sys_mmap_pgoff(0, BufferSize, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
         end_ = ptr_ = base_;
     }
 
@@ -58,20 +42,63 @@ public:
         sys_munmap((unsigned long)base_, BufferSize);
     }
 
-    inline quick_istream &operator>>(char &c)           { c = read_char(); return *this; }
-    inline quick_istream &operator>>(unsigned char &c)  { c = read_char(); return *this; }
-    inline quick_istream &operator>>(short &n)          { n = read_long(); return *this; }
-    inline quick_istream &operator>>(unsigned short &n) { n = read_long(); return *this; }
-    inline quick_istream &operator>>(int &n)            { n = read_long(); return *this; }
-    inline quick_istream &operator>>(unsigned int &n)   { n = read_long(); return *this; }
-    inline quick_istream &operator>>(long &n)           { n = read_long(); return *this; }
-    inline quick_istream &operator>>(unsigned long &n)  { n = read_long(); return *this; }
-    inline quick_istream &operator>>(float &f)          { f = float(read_double()); return *this; }
-    inline quick_istream &operator>>(double &d)         { d = read_double(); return *this; }
-    inline quick_istream &operator>>(char *str)         { read_string(str); return *this; }
+    inline quick_istream& operator>>(char& c) {
+        c = read_char();
+        return *this;
+    }
+
+    inline quick_istream& operator>>(unsigned char& c) {
+        c = read_char();
+        return *this;
+    }
+
+    inline quick_istream& operator>>(short& n) {
+        n = read_long();
+        return *this;
+    }
+
+    inline quick_istream& operator>>(unsigned short& n) {
+        n = read_long();
+        return *this;
+    }
+
+    inline quick_istream& operator>>(int& n) {
+        n = read_long();
+        return *this;
+    }
+
+    inline quick_istream& operator>>(unsigned int& n) {
+        n = read_long();
+        return *this;
+    }
+
+    inline quick_istream& operator>>(long& n) {
+        n = read_long();
+        return *this;
+    }
+
+    inline quick_istream& operator>>(unsigned long& n) {
+        n = read_long();
+        return *this;
+    }
+
+    inline quick_istream& operator>>(float& f) {
+        f = float(read_double());
+        return *this;
+    }
+
+    inline quick_istream& operator>>(double& d) {
+        d = read_double();
+        return *this;
+    }
+
+    inline quick_istream& operator>>(char* str) {
+        read_string(str);
+        return *this;
+    }
 
 private:
-    constexpr static std::size_t BufferSize = 0x1000;
+    static constexpr std::size_t BufferSize = 0x1000;
 
     inline constexpr bool is_blank(char c) const {
         return c == 32 || c == 10;
@@ -141,7 +168,7 @@ private:
         return std::strtod(smallbuf, NULL);
     }
 
-    void read_string(char *str) {
+    void read_string(char* str) {
         char c;
 
         do {
@@ -160,15 +187,15 @@ private:
         *str = 0;
     }
 
-    char *base_;
-    char *end_;
-    char *ptr_;
+    char* base_;
+    char* end_;
+    char* ptr_;
 };
 
 class quick_ostream {
 public:
     quick_ostream() {
-        base_ = (char *)sys_mmap_pgoff(0, BufferSize, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+        base_ = (char*)sys_mmap_pgoff(0, BufferSize, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
         end_ = base_ + BufferSize;
         ptr_ = base_;
     }
@@ -178,24 +205,67 @@ public:
         sys_munmap((unsigned long)base_, BufferSize);
     }
 
-    inline quick_ostream &operator<<(char c)           { write_char(c); return *this; }
-    inline quick_ostream &operator<<(unsigned char c)  { write_char(c); return *this; }
-    inline quick_ostream &operator<<(short n)          { write_long(n); return *this; }
-    inline quick_ostream &operator<<(unsigned short n) { write_long_unsigned(n); return *this; }
-    inline quick_ostream &operator<<(int n)            { write_long(n); return *this; }
-    inline quick_ostream &operator<<(unsigned int n)   { write_long_unsigned(n); return *this; }
-    inline quick_ostream &operator<<(long n)           { write_long(n); return *this; }
-    inline quick_ostream &operator<<(unsigned long n)  { write_long_unsigned(n); return *this; }
-    inline quick_ostream &operator<<(float f)          { write_double(f); return *this; }
-    inline quick_ostream &operator<<(double d)         { write_double(d); return *this; }
-    inline quick_ostream &operator<<(const char *str)  { write_string(str); return *this; }
+    inline quick_ostream& operator<<(char c) {
+        write_char(c);
+        return *this;
+    }
+
+    inline quick_ostream& operator<<(unsigned char c) {
+        write_char(c);
+        return *this;
+    }
+
+    inline quick_ostream& operator<<(short n) {
+        write_long(n);
+        return *this;
+    }
+
+    inline quick_ostream& operator<<(unsigned short n) {
+        write_long_unsigned(n);
+        return *this;
+    }
+
+    inline quick_ostream& operator<<(int n) {
+        write_long(n);
+        return *this;
+    }
+
+    inline quick_ostream& operator<<(unsigned int n) {
+        write_long_unsigned(n);
+        return *this;
+    }
+
+    inline quick_ostream& operator<<(long n) {
+        write_long(n);
+        return *this;
+    }
+
+    inline quick_ostream& operator<<(unsigned long n) {
+        write_long_unsigned(n);
+        return *this;
+    }
+
+    inline quick_ostream& operator<<(float f) {
+        write_double(f);
+        return *this;
+    }
+
+    inline quick_ostream& operator<<(double d) {
+        write_double(d);
+        return *this;
+    }
+
+    inline quick_ostream& operator<<(const char* str) {
+        write_string(str);
+        return *this;
+    }
 
     inline void set_precision(int precision) {
         precision_ = precision;
     }
 
 private:
-    constexpr static std::size_t BufferSize = 0x1000;
+    static constexpr std::size_t BufferSize = 0x1000;
 
     ssize_t write() {
         ssize_t r = sys_write(1, base_, ptr_ - base_);
@@ -225,7 +295,7 @@ private:
         }
 
         char smallbuf[20];
-        char *t = smallbuf;
+        char* t = smallbuf;
 
         do {
             *t++ = n % 10 | 0x30;
@@ -242,15 +312,15 @@ private:
         write_string(ss.str().c_str());
     }
 
-    void write_string(const char *str) {
+    void write_string(const char* str) {
         while (*str) {
             write_char(*str++);
         }
     }
 
-    char *base_;
-    char *end_;
-    char *ptr_;
+    char* base_;
+    char* end_;
+    char* ptr_;
 
     int precision_ = 6;
 };
@@ -263,7 +333,7 @@ private:
 #error "Unsupported platform."
 #endif
 
-} // namespace mlib
+}  // namespace mlib
 
 #include <algorithm>
 #include <cmath>
@@ -276,24 +346,22 @@ struct vector2d {
 
     explicit vector2d(int x = 0, int y = 0) : x(x), y(y) {}
 
-    inline vector2d operator+(const vector2d &v) {
+    inline vector2d operator+(const vector2d& v) {
         return vector2d(x + v.x, y + v.y);
     }
 
-    inline void operator+=(const vector2d &v) {
+    inline void operator+=(const vector2d& v) {
         x += v.x;
         y += v.y;
     }
 
-    inline void operator-=(const vector2d &v) {
+    inline void operator-=(const vector2d& v) {
         x -= v.x;
         y -= v.y;
     }
 
     inline unsigned long norm() const {
-        static constexpr auto sqr = [](long x) -> unsigned long {
-            return x * x;
-        };
+        static constexpr auto sqr = [](long x) -> unsigned long { return x * x; };
 
         return sqr(long(x)) + sqr(long(y));
     }
@@ -321,7 +389,7 @@ static unsigned long match(int index, int remaining, vector2d sum) {
     return r;
 }
 
-} // namespace
+}  // namespace
 
 int main() {
     mlib::quick_istream is;

@@ -12,14 +12,14 @@ consteval auto make_array() {
     a[1] = One;
 
     for (unsigned int i = 2; i < N; ++i) {
-        a[i] = a[i-2] + a[i-1];
+        a[i] = a[i - 2] + a[i - 1];
     }
 
     return a;
 }
 
 constinit auto Zero = make_array<41, 1, 0>();
-constinit auto One  = make_array<41, 0, 1>();
+constinit auto One = make_array<41, 0, 1>();
 
 }  // namespace
 

@@ -12,6 +12,7 @@ class Rational {
 
 public:
     Rational() = delete;
+
     Rational(T numerator, T denominator) {
         if (denominator == 0)
             throw;
@@ -37,16 +38,16 @@ public:
         n2_ /= gcd;
     }
 
-    inline constexpr bool operator>(Rational<T> &rhs) const {
-        return sign_ != rhs.sign_ ? sign_ > rhs.sign_ :
-               sign_ == -1        ? LU(n1_) * rhs.n2_ < LU(n2_) * rhs.n1_ :
-                                    LU(n1_) * rhs.n2_ > LU(n2_) * rhs.n1_;
+    inline constexpr bool operator>(Rational<T>& rhs) const {
+        return sign_ != rhs.sign_ ? sign_ > rhs.sign_
+               : sign_ == -1      ? LU(n1_) * rhs.n2_ < LU(n2_) * rhs.n1_
+                                  : LU(n1_) * rhs.n2_ > LU(n2_) * rhs.n1_;
     }
 
-    inline constexpr bool operator<(Rational<T> &rhs) const {
-        return sign_ != rhs.sign_ ? sign_ < rhs.sign_ :
-               sign_ == -1        ? LU(n1_) * rhs.n2_ > LU(n2_) * rhs.n1_ :
-                                    LU(n1_) * rhs.n2_ < LU(n2_) * rhs.n1_;
+    inline constexpr bool operator<(Rational<T>& rhs) const {
+        return sign_ != rhs.sign_ ? sign_ < rhs.sign_
+               : sign_ == -1      ? LU(n1_) * rhs.n2_ > LU(n2_) * rhs.n1_
+                                  : LU(n1_) * rhs.n2_ < LU(n2_) * rhs.n1_;
     }
 
 private:
@@ -58,7 +59,7 @@ private:
     U n2_;
 };
 
-} // namespace
+}  // namespace
 
 int main() {
     int n;

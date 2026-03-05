@@ -8,6 +8,7 @@ struct DisjointSet {
     std::vector<int> rank;
 
     DisjointSet() = delete;
+
     DisjointSet(int size) : set(gen(size)), rank(size, 1) {}
 
     int find(int x) {

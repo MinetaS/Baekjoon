@@ -27,15 +27,16 @@ struct alignas(VectorSize) BooleanArray {
 private:
     static constexpr std::size_t ArraySize = (N + 0x1FF) & ~0x1FFu;
 
-    static inline constexpr void CSA(__m256i *h, __m256i *l, __m256i a, __m256i b, __m256i c) {
+    static inline constexpr void CSA(__m256i* h, __m256i* l, __m256i a, __m256i b, __m256i c) {
         __m256i u = _mm256_xor_si256(a, b);
         *h = _mm256_or_si256(_mm256_and_si256(a, b), _mm256_and_si256(u, c));
         *l = _mm256_xor_si256(u, c);
     }
 
     static inline constexpr __m256i count_256(__m256i v) {
-        __m256i lookup = _mm256_setr_epi8(0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4,
-                                          0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4);
+        __m256i lookup = _mm256_setr_epi8(
+            0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4, 0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4
+        );
         __m256i low_mask = _mm256_set1_epi8(0x0F);
         __m256i lo = _mm256_and_si256(v, low_mask);
         __m256i hi = _mm256_and_si256(_mm256_srli_epi32(v, 4), low_mask);
@@ -53,29 +54,29 @@ template<std::size_t N>
 std::size_t BooleanArray<N>::count(std::size_t bits) {
     bits = (bits + 0xFF) & ~0xFFu;
 
-    __m256i *d = reinterpret_cast<__m256i *>(array);
+    __m256i* d = reinterpret_cast<__m256i*>(array);
     __m256i total = _mm256_setzero_si256();
-    __m256i c1    = _mm256_setzero_si256();
-    __m256i c2    = _mm256_setzero_si256();
-    __m256i c4    = _mm256_setzero_si256();
-    __m256i c8    = _mm256_setzero_si256();
-    __m256i c16   = _mm256_setzero_si256();
+    __m256i c1 = _mm256_setzero_si256();
+    __m256i c2 = _mm256_setzero_si256();
+    __m256i c4 = _mm256_setzero_si256();
+    __m256i c8 = _mm256_setzero_si256();
+    __m256i c16 = _mm256_setzero_si256();
     __m256i a2, b2, a4, b4, a8, b8;
 
     // Accumulate per 16 * 32 bytes.
     for (std::size_t i = 0; i < bits / 0x100; i += 0x10) {
-        CSA(&a2, &c1, c1, d[i], d[i+1]);
-        CSA(&b2, &c1, c1, d[i+2], d[i+3]);
+        CSA(&a2, &c1, c1, d[i], d[i + 1]);
+        CSA(&b2, &c1, c1, d[i + 2], d[i + 3]);
         CSA(&a4, &c2, c2, a2, b2);
-        CSA(&a2, &c1, c1, d[i+4], d[i+5]);
-        CSA(&b2, &c1, c1, d[i+6], d[i+7]);
+        CSA(&a2, &c1, c1, d[i + 4], d[i + 5]);
+        CSA(&b2, &c1, c1, d[i + 6], d[i + 7]);
         CSA(&b4, &c2, c2, a2, b2);
         CSA(&a8, &c4, c4, a4, b4);
-        CSA(&a2, &c1, c1, d[i+8], d[i+9]);
-        CSA(&b2, &c1, c1, d[i+10], d[i+11]);
+        CSA(&a2, &c1, c1, d[i + 8], d[i + 9]);
+        CSA(&b2, &c1, c1, d[i + 10], d[i + 11]);
         CSA(&a4, &c2, c2, a2, b2);
-        CSA(&a2, &c1, c1, d[i+12], d[i+13]);
-        CSA(&b2, &c1, c1, d[i+14], d[i+15]);
+        CSA(&a2, &c1, c1, d[i + 12], d[i + 13]);
+        CSA(&b2, &c1, c1, d[i + 14], d[i + 15]);
         CSA(&b4, &c2, c2, a2, b2);
         CSA(&b8, &c4, c4, a4, b4);
         CSA(&c16, &c8, c8, a8, b8);
@@ -88,13 +89,13 @@ std::size_t BooleanArray<N>::count(std::size_t bits) {
     total = _mm256_add_epi64(total, _mm256_slli_epi64(count_256(c2), 1));
     total = _mm256_add_epi64(total, count_256(c1));
 
-    return _mm256_extract_epi64(total, 0) + _mm256_extract_epi64(total, 1) +
-           _mm256_extract_epi64(total, 2) + _mm256_extract_epi64(total, 3);
+    return _mm256_extract_epi64(total, 0) + _mm256_extract_epi64(total, 1) + _mm256_extract_epi64(total, 2) +
+           _mm256_extract_epi64(total, 3);
 }
 
 BooleanArray<125001> square;
 
-} // namespace
+}  // namespace
 
 int main() {
     std::uint64_t min, max;

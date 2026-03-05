@@ -3,10 +3,9 @@
 
 namespace {
 
-template<typename T, std::size_t N>
-    requires std::is_unsigned_v<T>
+template<typename T, std::size_t N> requires std::is_unsigned_v<T>
 consteval auto generate_binomial_table() {
-    std::array<std::array<T, N + 1>, N + 1> r{};
+    std::array<std::array<T, N + 1>, N + 1> r {};
 
     for (std::size_t n = 0; n <= N; ++n) {
         r[n][0] = 1;
@@ -22,7 +21,7 @@ consteval auto generate_binomial_table() {
 
 constinit auto Binomial = generate_binomial_table<unsigned int, 10>();
 
-} // namespace
+}  // namespace
 
 int main() {
     int n;

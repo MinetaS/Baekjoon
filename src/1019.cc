@@ -26,7 +26,7 @@ std::uint64_t count_digit_freq(std::uint64_t n, unsigned int d) {
     return r;
 }
 
-} // namespace
+}  // namespace
 
 int main() {
     int n;

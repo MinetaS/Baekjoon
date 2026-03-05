@@ -9,7 +9,7 @@
 
 int main() {
     int width, height;
-    std::uint64_t board[50] = { 0 };  // white: 0, black: 1
+    std::uint64_t board[50] = {};  // white: 0, black: 1
 
     std::scanf("%d %d", &height, &width);
 

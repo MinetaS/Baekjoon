@@ -14,8 +14,8 @@ using NodeID = Graph::NodeID;
 class BipartiteGraph : public Graph {
 public:
     BipartiteGraph() = delete;
-    BipartiteGraph(std::size_t size_left, std::size_t size_right)
-            : size_left_(size_left), adjacent_nodes_(size_left) {}
+
+    BipartiteGraph(std::size_t size_left, std::size_t size_right) : size_left_(size_left), adjacent_nodes_(size_left) {}
 
     inline void add_edge(NodeID left, NodeID right) {
         adjacent_nodes_[left].push_back(right);
@@ -32,15 +32,14 @@ class Matching {};
 
 class Matching$1017 : public Matching {
 public:
-    Matching$1017(BipartiteGraph &graph)
-            : graph_(graph), match_(graph.size_left_) {}
+    Matching$1017(BipartiteGraph& graph) : graph_(graph), match_(graph.size_left_) {}
 
     std::vector<NodeID> find_match();
 
 private:
     bool search(NodeID node);
 
-    BipartiteGraph &graph_;
+    BipartiteGraph& graph_;
 
     std::vector<NodeID> match_;
     unsigned int visited_;
@@ -102,7 +101,7 @@ bool is_prime(unsigned int n) {
     return true;
 }
 
-} // namespace
+}  // namespace
 
 int main() {
     int n, first, t;

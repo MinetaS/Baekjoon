@@ -22,8 +22,7 @@ std::int64_t search(int depth, int open) {
     if (cache[depth][open] != std::int64_t(-1))
         return cache[depth][open];
 
-    return cache[depth][open] = search(depth - 1, open + 1) +
-                                search(depth - 1, std::max(0, open - 1));
+    return cache[depth][open] = search(depth - 1, open + 1) + search(depth - 1, std::max(0, open - 1));
 }
 
 std::uint64_t find(int size, int open, std::uint64_t index) {
@@ -37,11 +36,10 @@ std::uint64_t find(int size, int open, std::uint64_t index) {
 
     std::uint64_t c = search(size - 1, open + 1);
 
-    return index < c ? find(size - 1, open + 1, index)
-                     : (1uL << (size - 1)) + find(size - 1, open - 1, index - c);
+    return index < c ? find(size - 1, open + 1, index) : (1uL << (size - 1)) + find(size - 1, open - 1, index - c);
 }
 
-} // namespace
+}  // namespace
 
 int main() {
     int n;

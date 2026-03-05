@@ -13,8 +13,9 @@ public:
 class BipartiteGraph : public Graph {
 public:
     BipartiteGraph() = delete;
-    BipartiteGraph(std::size_t size_left, std::size_t size_right)
-            : size_left_(size_left), size_right_(size_right), adjacent_nodes_(size_left) {}
+
+    BipartiteGraph(std::size_t size_left, std::size_t size_right) :
+            size_left_(size_left), size_right_(size_right), adjacent_nodes_(size_left) {}
 
     inline void add_edge(NodeID left, NodeID right) {
         adjacent_nodes_[left].push_back(right);
@@ -39,10 +40,12 @@ public:
 class HopcroftKarpMatching : public Matching {
 public:
     HopcroftKarpMatching() = delete;
-    HopcroftKarpMatching(BipartiteGraph &graph)
-            : graph_(graph),
-              level_(graph.size_left_, -1),
-              match_left_(graph.size_left_, -1), match_right_(graph.size_right_, -1) {}
+
+    HopcroftKarpMatching(BipartiteGraph& graph) :
+            graph_(graph),
+            level_(graph.size_left_, -1),
+            match_left_(graph.size_left_, -1),
+            match_right_(graph.size_right_, -1) {}
 
     int match();
 
@@ -50,7 +53,7 @@ private:
     void update_level();
     bool add_augment_path(NodeID node);
 
-    BipartiteGraph &graph_;
+    BipartiteGraph& graph_;
 
     std::vector<int> level_;
     std::vector<NodeID> match_left_;
@@ -122,7 +125,7 @@ bool HopcroftKarpMatching::add_augment_path(NodeID node) {
     return false;
 }
 
-} // namespace
+}  // namespace
 
 int main() {
     int N;

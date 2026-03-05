@@ -15,7 +15,7 @@ unsigned int binomial(int n, int r) {
     return cache[n][r] = binomial(n - 1, r) + binomial(n - 1, r - 1);
 }
 
-} // namespace
+}  // namespace
 
 int main() {
     int N;

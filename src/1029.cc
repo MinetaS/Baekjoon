@@ -10,8 +10,8 @@ class TradeState {
 public:
     TradeState() : TradeState(1, 0, 0) {}
 
-    TradeState(std::uint16_t owned, std::uint8_t owner, std::uint8_t price)
-            : owned_(owned), owner_(owner), price_(price) {}
+    TradeState(std::uint16_t owned, std::uint8_t owner, std::uint8_t price) :
+            owned_(owned), owner_(owner), price_(price) {}
 
     inline bool has_owned(int i) {
         return bool(owned_ & (1u << i));
@@ -37,12 +37,12 @@ public:
         return TradeState(owned_ | (1u << to), to, price_to(to));
     }
 
-    inline std::int8_t &probe() {
+    inline std::int8_t& probe() {
         return cache[owned_ >> 1][owner_][price_];
     }
 
     std::int8_t search() {
-        std::int8_t &entry = probe();
+        std::int8_t& entry = probe();
 
         if (entry != 0)
             return entry;
@@ -86,7 +86,7 @@ int TradeState::n;
 char TradeState::map[15][16];
 std::int8_t TradeState::cache[1 << 15][15][10];
 
-} // namespace
+}  // namespace
 
 int main() {
     std::scanf("%d", &TradeState::n);

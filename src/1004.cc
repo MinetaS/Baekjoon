@@ -18,13 +18,8 @@ int main() {
 
             std::scanf("%d %d %d", &cx, &cy, &cr);
 
-            static constexpr auto sqr = [](int x) -> unsigned int {
-                return x * x;
-            };
-
-            static constexpr auto distance = [](int x1, int y1, int x2, int y2) {
-                return sqr(x1 - x2) + sqr(y1 - y2);
-            };
+            static constexpr auto sqr = [](int x) -> unsigned int { return x * x; };
+            static constexpr auto distance = [](int x1, int y1, int x2, int y2) { return sqr(x1 - x2) + sqr(y1 - y2); };
 
             unsigned int d_src_sq = distance(sx, sy, cx, cy);
             unsigned int d_dest_sq = distance(dx, dy, cx, cy);

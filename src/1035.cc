@@ -15,7 +15,7 @@ struct Board {
         positions_[y][x] = true;
     }
 
-    bool move(Piece &piece, int dx, int dy) {
+    bool move(Piece& piece, int dx, int dy) {
         if (dx == 0 && dy == 0)
             return true;
 
@@ -42,16 +42,15 @@ struct Board {
 
             visited[y][x] = true;
 
-            return 1 + search(x - 1, y) + search(x + 1, y) +
-                       search(x, y - 1) + search(x, y + 1);
+            return 1 + search(x - 1, y) + search(x + 1, y) + search(x, y - 1) + search(x, y + 1);
         };
 
-        const Piece &p = pieces_[0];
+        const Piece& p = pieces_[0];
 
         return search(p.first, p.second) == int(pieces_.size());
     }
 
-    inline constexpr std::vector<Piece> &pieces() {
+    inline constexpr std::vector<Piece>& pieces() {
         return pieces_;
     }
 
@@ -60,7 +59,7 @@ private:
     bool positions_[5][5] = {};
 };
 
-} // namespace
+}  // namespace
 
 int main() {
     Board board;
@@ -84,7 +83,7 @@ int main() {
         if (remaining > 3 + 3 * (int(board.pieces().size()) - index))
             return false;
 
-        Board::Piece &p = board.pieces()[index];
+        Board::Piece& p = board.pieces()[index];
         int x_lb = std::max(-p.first, -remaining);
         int x_ub = std::min(4 - p.first, remaining);
 
@@ -94,7 +93,7 @@ int main() {
             int y_ub = std::min(4 - p.second, t);
 
             for (int dy = y_lb; dy <= y_ub; ++dy) {
-                Board::Piece &p = board.pieces()[index];
+                Board::Piece& p = board.pieces()[index];
 
                 if (!board.move(p, dx, dy))
                     continue;

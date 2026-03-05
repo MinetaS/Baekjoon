@@ -12,11 +12,12 @@ namespace {
 struct Base36 {
     Base36() {}  // Zero
 
-    Base36(const std::string &str) {
+    Base36(const std::string& str) {
         auto it = str.cbegin();
 
-        for ( ; *it == 48 && it != str.cend(); ++it);
-        for ( ; it != str.cend(); ++it) {
+        for (; *it == 48 && it != str.cend(); ++it)
+            ;
+        for (; it != str.cend(); ++it) {
             digits_.push_back(to_int(*it));
         }
 
@@ -35,40 +36,40 @@ struct Base36 {
         return digits_.end();
     }
 
-    bool operator==(const Base36 &other) const {
+    bool operator==(const Base36& other) const {
         if (size() != other.size())
             return false;
 
         return std::equal(digits_.cbegin(), digits_.cend(), other.digits_.cbegin());
     }
 
-    bool operator!=(const Base36 &other) const {
+    bool operator!=(const Base36& other) const {
         return !operator==(other);
     }
 
-    bool operator>(const Base36 &other) const {
+    bool operator>(const Base36& other) const {
         if (size() < other.size())
             return false;
         if (size() > other.size())
             return true;
 
-        return std::lexicographical_compare(digits_.crbegin(), digits_.crend(),
-                                            other.digits_.crbegin(), other.digits_.crend(),
-                                            std::greater<std::uint8_t>());
+        return std::lexicographical_compare(
+            digits_.crbegin(), digits_.crend(), other.digits_.crbegin(), other.digits_.crend(), std::greater<std::uint8_t>()
+        );
     }
 
-    bool operator<(const Base36 &other) const {
+    bool operator<(const Base36& other) const {
         if (size() < other.size())
             return true;
         if (size() > other.size())
             return false;
 
-        return std::lexicographical_compare(digits_.crbegin(), digits_.crend(),
-                                            other.digits_.crbegin(), other.digits_.crend(),
-                                            std::less<std::uint8_t>());
+        return std::lexicographical_compare(
+            digits_.crbegin(), digits_.crend(), other.digits_.crbegin(), other.digits_.crend(), std::less<std::uint8_t>()
+        );
     }
 
-    Base36 operator+(const Base36 &other) const {
+    Base36 operator+(const Base36& other) const {
         const Base36 *n1 = this, *n2 = &other;
 
         if (n1->size() < n2->size()) {
@@ -96,7 +97,7 @@ struct Base36 {
         return r;
     }
 
-    Base36 operator+=(const Base36 &other) {
+    Base36 operator+=(const Base36& other) {
         *this = *this + other;
         return *this;
     }
@@ -126,20 +127,21 @@ struct Base36 {
     }
 
 private:
-    Base36(const std::vector<std::uint8_t> &digits) : digits_(digits) {}
-    Base36(std::vector<std::uint8_t> &&digits) : digits_(digits) {}
+    Base36(const std::vector<std::uint8_t>& digits) : digits_(digits) {}
+
+    Base36(std::vector<std::uint8_t>&& digits) : digits_(digits) {}
 
     std::vector<std::uint8_t> digits_;
 };
 
-} // namespace
+}  // namespace
 
 int main() {
     std::ios_base::sync_with_stdio(false);
 
     int n, k;
     std::vector<Base36> numbers;
-    std::array<Base36, 36> acc{};
+    std::array<Base36, 36> acc {};
     Base36 sum;
 
     std::cin >> n;
@@ -154,7 +156,7 @@ int main() {
 
     std::cin >> k;
 
-    for (Base36 &number : numbers) {
+    for (Base36& number : numbers) {
         for (auto it = number.begin(); it != number.end(); ++it) {
             std::string s(1, Base36::to_digit(35 - *it));
 

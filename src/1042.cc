@@ -33,8 +33,7 @@ constexpr Nucleotide resolve_nucleotide_char(const char c) {
 template<>
 struct std::hash<Codon> {
     std::size_t operator()(const Codon& codon) const {
-        return (static_cast<std::uint32_t>(codon[0]) << 16) |
-               (static_cast<std::uint32_t>(codon[1]) << 8) |
+        return (static_cast<std::uint32_t>(codon[0]) << 16) | (static_cast<std::uint32_t>(codon[1]) << 8) |
                static_cast<std::uint32_t>(codon[2]);
     }
 };
@@ -70,10 +69,13 @@ int main() {
         }
 
         codon_to_amino_acid.emplace(
-            Codon{resolve_nucleotide_char(codon_string[0]),
-                  resolve_nucleotide_char(codon_string[1]),
-                  resolve_nucleotide_char(codon_string[2])},
-            amino_acid_id);
+            Codon {
+                resolve_nucleotide_char(codon_string[0]),
+                resolve_nucleotide_char(codon_string[1]),
+                resolve_nucleotide_char(codon_string[2])
+            },
+            amino_acid_id
+        );
     }
 
     const std::size_t L = amino_acid_map.size();
@@ -100,8 +102,7 @@ int main() {
 
     // Build a 2D array which stores the ending index of the shortest sequence
     // of a codon that can be formed starting from each nucleotide.
-    std::vector<std::vector<std::size_t>> amino_acid_matched(
-        N, std::vector<std::size_t>(L, kInfinity));
+    std::vector<std::vector<std::size_t>> amino_acid_matched(N, std::vector<std::size_t>(L, kInfinity));
 
     for (std::size_t amino_acid_id : std::views::iota(0u, L)) {
         for (const Codon& codon : codon_groups[amino_acid_id]) {

@@ -11,20 +11,20 @@ namespace {
 struct State : public std::tuple<std::string, std::size_t, int> {
     using std::tuple<std::string, std::size_t, int>::tuple;
 
-    inline constexpr std::string &state() {
+    inline constexpr std::string& state() {
         return std::get<0>(*this);
     }
 
-    inline constexpr std::size_t &i() {
+    inline constexpr std::size_t& i() {
         return std::get<1>(*this);
     }
 
-    inline constexpr int &ops() {
+    inline constexpr int& ops() {
         return std::get<2>(*this);
     }
 };
 
-} // namespace
+}  // namespace
 
 int main() {
     int n, k;
@@ -46,7 +46,7 @@ int main() {
         State st(std::move(pool.front()));
         pool.pop_front();
 
-        std::string &s = st.state();
+        std::string& s = st.state();
 
         if (st.i() == str.size() || st.ops() == k) {
             int remaining = k - st.ops();
@@ -79,7 +79,7 @@ int main() {
             continue;
         }
 
-        for ( ; it != s.end(); it = std::find(it + 1, s.end(), max)) {
+        for (; it != s.end(); it = std::find(it + 1, s.end(), max)) {
             std::string next(s);
             std::swap(next[st.i()], next[it - s.begin()]);
             pool.emplace_back(std::move(next), st.i() + 1, st.ops() + 1);

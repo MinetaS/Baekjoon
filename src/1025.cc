@@ -1,5 +1,5 @@
-#include <cstdio>
 #include <cmath>
+#include <cstdio>
 
 int main() {
     int n, m;
@@ -16,9 +16,7 @@ int main() {
         return t * t == n;
     };
 
-    static constexpr auto in_range = [](int v, int lo, int hi) {
-        return v >= lo && v < hi;
-    };
+    static constexpr auto in_range = [](int v, int lo, int hi) { return v >= lo && v < hi; };
 
     int max_sq = -1;
 

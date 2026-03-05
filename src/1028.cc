@@ -20,39 +20,36 @@ struct DiamondMine {
 class Cache {
 public:
     Cache() = delete;
-    Cache(DiamondMine &map) : map_(map) {}
 
-    inline constexpr std::int16_t &operator()(int x, int y, Direction d) {
+    Cache(DiamondMine& map) : map_(map) {}
+
+    inline constexpr std::int16_t& operator()(int x, int y, Direction d) {
         return data[y][x][d];
     }
 
     template<Direction D>
     std::int16_t update(int x, int y) {
-        if (y >= map_.rows ||
-            (D == LEFT && x < 0) ||
-            (D == RIGHT && x >= map_.columns))
+        if (y >= map_.rows || (D == LEFT && x < 0) || (D == RIGHT && x >= map_.columns))
             return 0;
 
-        std::int16_t &r = (*this)(x, y, D);
+        std::int16_t& r = (*this)(x, y, D);
 
         if (r != -1)
             return r;
 
-        return r = !map_(x, y) ? 0 :
-                   D == LEFT  ? 1 + update<LEFT>(x - 1, y + 1) :
-                                1 + update<RIGHT>(x + 1, y + 1);
+        return r = !map_(x, y) ? 0 : D == LEFT ? 1 + update<LEFT>(x - 1, y + 1) : 1 + update<RIGHT>(x + 1, y + 1);
     }
 
     std::int16_t data[750][750][2];
 
 private:
-    DiamondMine &map_;
+    DiamondMine& map_;
 };
 
 DiamondMine map;
 Cache cache(map);
 
-} // namespace
+}  // namespace
 
 int main() {
     std::memset(cache.data, 0xFF, sizeof(cache.data));
@@ -75,7 +72,7 @@ int main() {
         for (int x = max_size; x < map.columns - max_size; ++x) {
             int size = std::min(cache(x, y, LEFT), cache(x, y, RIGHT));
 
-            for ( ; size > max_size; --size) {
+            for (; size > max_size; --size) {
                 int delta = size - 1;
 
                 if (cache(x - delta, y + delta, RIGHT) < size)

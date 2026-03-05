@@ -10,7 +10,7 @@ int main() {
     constexpr std::int8_t INF = std::numeric_limits<std::int8_t>::max();
 
     int n, m;
-    int rounds[2] = { 0 };
+    int rounds[2] = {};
     std::int8_t capacity[2][50] = {};
     std::int8_t flow[50][50] = {};
     std::int8_t level[2][50], level_sink;
@@ -39,7 +39,7 @@ int main() {
     static const auto construct_level_graph = [&]() -> std::int8_t {
         int connected = 0;
 
-        std::fill_n(reinterpret_cast<std::int8_t *>(level), sizeof(level), INF);
+        std::fill_n(reinterpret_cast<std::int8_t*>(level), sizeof(level), INF);
 
         // Initialize level = 1.
         for (int i = 0; i < n; ++i) {
@@ -116,8 +116,8 @@ int main() {
                         continue;
                     if (flow[node][i] != 0)
                         continue;
-                    if (std::make_pair(node, i) <= edge) {
-                        continue;}
+                    if (std::make_pair(node, i) <= edge)
+                        continue;
 
                     if (traverse(Hansu, i) > 0) {
                         flow[node][i] = 1;
@@ -187,7 +187,7 @@ int main() {
         int previous[2][50];
         bool updated;
 
-        std::fill_n(reinterpret_cast<int *>(previous), sizeof(previous) / sizeof(int), -1);
+        std::fill_n(reinterpret_cast<int*>(previous), sizeof(previous) / sizeof(int), -1);
 
         previous[Jimin][from] = INF;  // source
 

@@ -12,8 +12,8 @@ int compare_double(double x, double y) {
     if (std::abs(diff) <= AbsLimit)
         return 0;
 
-    long long nx = *(reinterpret_cast<long long *>(&x));
-    long long ny = *(reinterpret_cast<long long *>(&y));
+    long long nx = *(reinterpret_cast<long long*>(&x));
+    long long ny = *(reinterpret_cast<long long*>(&y));
 
     if ((nx & 0x8000000000000000) != (ny & 0x8000000000000000))
         return (diff > 0) ? 1 : -1;
@@ -24,7 +24,7 @@ int compare_double(double x, double y) {
     return diff > 0 ? 1 : -1;
 }
 
-} // namespace
+}  // namespace
 
 int main() {
     int N;

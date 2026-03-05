@@ -20,4 +20,7 @@ endif
 clean:
 	@rm -f $(EXE)
 
-.PHONY: clean
+format:
+	@clang-format -i *.cc
+
+.PHONY: clean format

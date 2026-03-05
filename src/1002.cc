@@ -9,9 +9,7 @@ int main() {
         int x1, y1, r1, x2, y2, r2, r;
         unsigned int d;
 
-        static constexpr auto sqr = [](int x) -> unsigned int {
-            return x * x;
-        };
+        static constexpr auto sqr = [](int x) -> unsigned int { return x * x; };
 
         std::scanf("%d %d %d %d %d %d", &x1, &y1, &r1, &x2, &y2, &r2);
 

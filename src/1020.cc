@@ -5,18 +5,31 @@
 
 namespace {
 
-constexpr int Weight[10] = { 4, 0, 3, 3, 2, 3, 4, 1, 5, 3 };
+constexpr int Weight[10] = {4, 0, 3, 3, 2, 3, 4, 1, 5, 3};
 
 constexpr std::int64_t P10[16] = {
-    1, 10, 100, 1'000, 10'000, 100'000, 1'000'000, 10'000'000, 100'000'000,
-    1'000'000'000, 10'000'000'000, 100'000'000'000, 1'000'000'000'000,
-    10'000'000'000'000, 100'000'000'000'000, 1'000'000'000'000'000
+    1,
+    10,
+    100,
+    1000,
+    10000,
+    100000,
+    1000000,
+    10000000,
+    100000000,
+    1000000000,
+    10000000000,
+    100000000000,
+    1000000000000,
+    10000000000000,
+    100000000000000,
+    1000000000000000
 };
 
 enum NodeType { G, ALL };
 
 template<NodeType type>
-std::int64_t find(int d, int weight, const char *number) {
+std::int64_t find(int d, int weight, const char* number) {
     static_assert(type == G || type == ALL);
 
     constexpr bool LimitedNode = type != ALL;
@@ -32,7 +45,7 @@ std::int64_t find(int d, int weight, const char *number) {
             i = number[0] - 48 + 1;
         }
 
-        for ( ; i < 10; ++i) {
+        for (; i < 10; ++i) {
             if (weight == Weight[i])
                 return i;
         }
@@ -49,7 +62,7 @@ std::int64_t find(int d, int weight, const char *number) {
         i = n + 1;
     }
 
-    for ( ; i < 10; ++i) {
+    for (; i < 10; ++i) {
         if ((r = find<ALL>(d - 1, weight - Weight[i], nullptr)) != -1)
             return i * P10[d - 1] + r;
     }
@@ -57,7 +70,7 @@ std::int64_t find(int d, int weight, const char *number) {
     return -1;
 }
 
-} // namespace
+}  // namespace
 
 int main() {
     char buf[16];
@@ -69,7 +82,7 @@ int main() {
     std::int64_t n = std::strtol(buf, nullptr, 10);
     std::int64_t r;
 
-    for (const char *c = buf; *c; ++c) {
+    for (const char* c = buf; *c; ++c) {
         ++digits;
         weight += Weight[*c - 48];
     }

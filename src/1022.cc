@@ -6,9 +6,7 @@ int main() {
     int r1, c1, r2, c2;
     int string_length = 1;
 
-    constexpr int P10[10] = {
-        1, 10, 100, 1'000, 10'000, 100'000, 1'000'000, 10'000'000, 100'000'000, 1'000'000'000
-    };
+    constexpr int P10[10] = {1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000};
 
     std::scanf("%d %d %d %d", &r1, &c1, &r2, &c2);
 
@@ -21,23 +19,23 @@ int main() {
                 if (x == 0 && y == 0)
                     v = 1;
                 else if (x > 0 && y > 0)
-                    v = (2*t + 1) * (2*t + 1);
+                    v = (2 * t + 1) * (2 * t + 1);
                 else if (x > 0 && y < 0)
-                    v = 4*t*t - (2*t - 1);
+                    v = 4 * t * t - (2 * t - 1);
                 else if (x < 0 && y > 0)
-                    v = (2*t + 1) * (2*t + 1) - 2*t;
+                    v = (2 * t + 1) * (2 * t + 1) - 2 * t;
                 else if (x < 0 && y < 0)
-                    v = 4*t*t + 1;
+                    v = 4 * t * t + 1;
             }
             else {
                 if (x == -t && std::abs(y) < t)
-                    v = 4*t*t + t + 1 + y;
+                    v = 4 * t * t + t + 1 + y;
                 else if (std::abs(x) < t && y == -t)
-                    v = 4*t*t - t + 1 - x;
+                    v = 4 * t * t - t + 1 - x;
                 else if (std::abs(x) < t && y == t)
-                    v = (2*t + 1) * (2*t + 1) - t + x;
+                    v = (2 * t + 1) * (2 * t + 1) - t + x;
                 else if (x == t && std::abs(y) < t)
-                    v = (2*t - 1) * (2*t - 1) + t - y;
+                    v = (2 * t - 1) * (2 * t - 1) + t - y;
             }
 
             table[y - r1][x - c1] = v;

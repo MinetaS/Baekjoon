@@ -14,9 +14,7 @@ public:
     using std::vector<std::int8_t>::vector;
 
     inline std::uint64_t to_ulong() const {
-        return std::accumulate(cbegin(), cend(), 0uL, [](std::uint64_t acc, std::int8_t v) {
-            return acc * 10 + v;
-        });
+        return std::accumulate(cbegin(), cend(), 0uL, [](std::uint64_t acc, std::int8_t v) { return acc * 10 + v; });
     }
 
     inline std::string to_string() const {
@@ -27,6 +25,7 @@ public:
 class Mask {
 public:
     Mask() : v_(0) {}
+
     Mask(std::uint32_t v) : v_(v) {}
 
     inline constexpr int count() const {
@@ -45,7 +44,7 @@ private:
     std::uint32_t v_;
 };
 
-} // namespace
+}  // namespace
 
 int main() {
     std::ios_base::sync_with_stdio(false);
@@ -71,7 +70,7 @@ int main() {
         if (digits.size() == n.size())
             return mask.count() == k && digits >= n;
 
-        bool &r = cache[digits.size()][mask][tight];
+        bool& r = cache[digits.size()][mask][tight];
 
         if (r)
             return false;
